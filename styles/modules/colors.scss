@@ -1,0 +1,36 @@
+@import "./radix.scss";
+
+$colors: (
+    "text": (
+        "black"
+            (
+                "primary": var(--black-a12),
+                "secondary": var(--black-a6)
+            ),
+        "white"
+            (
+                "primary": var(--white-a12),
+                "secondary": var(--white-a6)
+            ),
+        "green"
+            (
+                "primary": var(--green-a10),
+                "secondary": var(--green-a6)
+            )
+    ),
+    "background": (
+        "white": var(--white-a12),
+        "black": var(--black-a12),
+        "grey": var(--gray-a10),
+        "blue": var(--blue-a10),
+        "green": var(--green-a10),
+        "orange": var(--orange-a10)
+    ),
+    "shadow": (
+        "1": var(--black-a1)
+    ),
+    "scrollbar": (
+        "track": rgba(0, 0, 0, 0),
+        "thumb": var(--black-a4)
+    )
+);
