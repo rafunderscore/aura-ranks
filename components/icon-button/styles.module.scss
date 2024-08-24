@@ -1,0 +1,39 @@
+.icon {
+  @include box-shadow-float;
+  @include paragraph-semi-bold;
+  @include border("stroke-button", 1px, solid, 8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+
+  &[data-size="1"] {
+  }
+
+  &[data-size="2"] {
+  }
+
+  &[data-size="3"] {
+  }
+
+  &[data-size="4"] {
+  }
+
+  &[data-variant="primary"] {
+    @include background-color("background-white");
+    @include color("text-black-secondary");
+  }
+
+  &[data-variant="secondary"] {
+  }
+
+  &[data-variant="tertiary"] {
+  }
+
+  &[data-disabled="true"] {
+    opacity: 0.4;
+  }
+}

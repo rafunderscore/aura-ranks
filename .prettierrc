@@ -1,0 +1,5 @@
+{
+  "plugins": ["prettier-plugin-css-order"],
+  "cssDeclarationSorterOrder": "concentric-css",
+  "cssDeclarationSorterKeepOverrides": false
+}

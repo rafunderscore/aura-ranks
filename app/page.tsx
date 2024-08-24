@@ -1,5 +1,5 @@
-import styles from "@/styles/main.module.scss";
+import ProfileHeader from "@/screens/profile/header";
 
 export default async function Page() {
-  return <main className={styles.main}></main>;
+  return <ProfileHeader />;
 }

@@ -1,0 +1,50 @@
+$colors: (
+  "text-black-primary": var(--black-a12),
+  "text-black-secondary": var(--black-a6),
+  "text-white-primary": var(--white-a12),
+  "text-white-secondary": var(--white-a6),
+  "text-green-primary": var(--green-a10),
+  "text-green-secondary": var(--green-a6),
+  "background-white": var(--white-a12),
+  "background-black": var(--black-a12),
+  "background-grey": var(--gray-a10),
+  "background-blue": var(--blue-a10),
+  "background-green": var(--green-a10),
+  "background-orange": var(--orange-a10),
+  "stroke-button": var(--gray-a6),
+);
+
+@mixin color($key) {
+  @if map-has-key($colors, $key) {
+    color: map-get($colors, $key);
+  } @else {
+    @error "Color key `#{$key}` not found in the `$colors` map. Available keys are: #{map-keys($colors)}.";
+  }
+}
+
+@mixin background-color($key) {
+  @if map-has-key($colors, $key) {
+    background-color: map-get($colors, $key);
+  } @else {
+    @error "Background color key `#{$key}` not found in the `$colors` map. Available keys are: #{map-keys($colors)}.";
+  }
+}
+
+@mixin fill($key) {
+  @if map-has-key($colors, $key) {
+    fill: map-get($colors, $key);
+  } @else {
+    @error "Fill color key `#{$key}` not found in the `$colors` map. Available keys are: #{map-keys($colors)}.";
+  }
+}
+
+@mixin border($key, $width: "inherit", $style: "inherit", $radius: "inherit") {
+  @if map-has-key($colors, $key) {
+    border: $width $style map-get($colors, $key);
+    @if $radius != 0 {
+      border-radius: $radius;
+    }
+  } @else {
+    @error "Border color key `#{$key}` not found in the `$colors` map. Available keys are: #{map-keys($colors)}.";
+  }
+}

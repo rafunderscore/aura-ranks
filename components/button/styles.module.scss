@@ -1,0 +1,44 @@
+.button {
+  @include box-shadow-float;
+  @include paragraph-semi-bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0px 20px;
+  min-width: 128px;
+  height: 32px;
+
+  &[data-size="1"] {
+  }
+
+  &[data-size="2"] {
+  }
+
+  &[data-size="3"] {
+  }
+
+  &[data-size="4"] {
+  }
+
+  &[data-variant="primary"] {
+    @include background-color("background-black");
+    @include color("text-white-primary");
+  }
+
+  &[data-variant="secondary"] {
+  }
+
+  &[data-variant="tertiary"] {
+  }
+
+  &[data-disabled="true"] {
+    opacity: 0.4;
+    pointer-events: none;
+
+    &:hover {
+      cursor: help;
+    }
+  }
+}
