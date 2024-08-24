@@ -22,7 +22,7 @@ const MOCK_USER = {
   followers: 230231,
 };
 
-const ProfileHeader = () => {
+export const Header = () => {
   const formatter = new Intl.NumberFormat("en-US", {
     notation: "compact",
     compactDisplay: "short",
@@ -77,5 +77,3 @@ const ProfileHeader = () => {
     </div>
   );
 };
-
-export default ProfileHeader;

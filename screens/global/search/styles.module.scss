@@ -1,0 +1,49 @@
+.search {
+  @include paragraph-semi-bold;
+  @include color("text-black-secondary");
+  @include box-shadow("float");
+  @include border(
+    $width: 1px,
+    $style: solid,
+    $key: "stroke-button",
+    $radius: 8px
+  );
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0px;
+  width: 384px;
+  height: 32px;
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+  }
+
+  .right {
+    display: flex;
+    opacity: 0.9;
+    margin-right: 4px;
+    height: 100%;
+
+    > code {
+      @include paragraph-regular;
+      @include color("text-black-secondary");
+      @include background-color("background-grey");
+      @include border(
+        $width: 1px,
+        $style: solid,
+        $key: "stroke-button",
+        $radius: 4px
+      );
+      display: flex;
+      padding: 0px 6px;
+      font-size: 10px;
+      font-family: var(--font-geist-sans);
+    }
+  }
+}

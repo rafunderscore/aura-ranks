@@ -1,0 +1,45 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 16px;
+  width: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+
+    .heading {
+      @include paragraph-semi-bold();
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+
+  .items {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+    gap: 16px;
+
+    &[data-layout="grid"] {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    &[data-layout="row"] {
+      flex-direction: row;
+    }
+
+    > * {
+      flex: 1 0 0;
+    }
+  }
+}

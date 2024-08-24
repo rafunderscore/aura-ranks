@@ -1,0 +1,47 @@
+.stat {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+
+  .heading {
+    @include color("text-black-secondary");
+  }
+
+  .details {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    align-self: stretch;
+
+    .standout {
+      @include paragraph-semi-bold;
+      @include color("text-black-primary");
+
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+
+      > sub {
+        @include paragraph-regular;
+        @include color("text-black-secondary");
+      }
+    }
+
+    .value {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      &[data-sign="positive"] {
+        @include color("text-green-primary");
+      }
+
+      &[data-sign="negative"] {
+        @include color("text-red-primary");
+      }
+    }
+  }
+}

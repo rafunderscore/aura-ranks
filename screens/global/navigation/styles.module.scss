@@ -1,0 +1,46 @@
+.navigation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 32px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .left {
+      display: inline-flex;
+      justify-content: start;
+      align-items: center;
+      gap: 24px;
+      width: 256px;
+
+      .home {
+        @include paragraph-semi-bold;
+      }
+
+      .links {
+        @include color("text-black-secondary");
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+      }
+    }
+
+    .center {
+    }
+
+    .right {
+      display: inline-flex;
+      justify-content: end;
+      align-items: center;
+      gap: 16px;
+      width: 256px;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.island {
+  @include background-color("background-grey");
+  @include border($radius: 16px);
+  display: flex;
+  flex: 1 0 0;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 4px;
+
+  .container {
+    @include box-shadow("centered");
+    @include background-color("background-white");
+    @include border(
+      $key: "stroke-button",
+      $width: 1px,
+      $style: solid,
+      $radius: 12px
+    );
+
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+  }
+}

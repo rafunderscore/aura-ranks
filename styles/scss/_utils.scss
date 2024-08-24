@@ -1,0 +1,8 @@
+@function isLight($color) {
+  @if type-of($color) == "string" and str-index($color, "var(") {
+    @warn "Cannot determine lightness of CSS variables.";
+    @return false;
+  }
+  $luminance: luminance($color);
+  @return $luminance > 0.5;
+}

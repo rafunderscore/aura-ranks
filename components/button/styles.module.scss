@@ -1,14 +1,31 @@
 .button {
-  @include box-shadow-float;
+  @include box-shadow("float");
   @include paragraph-semi-bold;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 8px;
-  padding: 0px 20px;
-  min-width: 128px;
   height: 32px;
+
+  &[data-radius="circle"] {
+    border-radius: 50%;
+  }
+
+  &[data-radius="rounded"] {
+    border-radius: 8px;
+  }
+
+  &[data-fit="true"] {
+    padding-right: 10px;
+    padding-left: 10px;
+    width: fit-content;
+  }
+
+  &[data-fit="false"] {
+    padding-right: 20px;
+    padding-left: 20px;
+    min-width: 128px;
+  }
 
   &[data-size="1"] {
   }
@@ -28,6 +45,8 @@
   }
 
   &[data-variant="secondary"] {
+    @include background-color("background-white");
+    @include border("stroke-button", 1px, solid, 8px);
   }
 
   &[data-variant="tertiary"] {

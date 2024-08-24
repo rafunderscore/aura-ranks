@@ -15,7 +15,7 @@ body,
 main {
   overflow: auto;
   scroll-behavior: smooth;
-  scrollbar-color: var(--black-a4) var(--black-a11);
+  scrollbar-color: var(--black-a4) transparent;
   scrollbar-width: thin;
 }
 

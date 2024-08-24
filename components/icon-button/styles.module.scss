@@ -1,5 +1,5 @@
 .icon {
-  @include box-shadow-float;
+  @include box-shadow("float");
   @include paragraph-semi-bold;
   @include border("stroke-button", 1px, solid, 8px);
   display: flex;
@@ -33,7 +33,29 @@
   &[data-variant="tertiary"] {
   }
 
+  &[data-background] {
+    @each $name, $color in $colors {
+      &[data-background="#{$name}"] {
+        background-color: map-get($colors, $name);
+
+        @if isLight($color) {
+          color: map-get($colors, "text-black-primary");
+        } @else {
+          color: map-get($colors, "text-white-primary");
+        }
+      }
+    }
+  }
+
   &[data-disabled="true"] {
     opacity: 0.4;
+  }
+
+  &[data-radius="circle"] {
+    border-radius: 50%;
+  }
+
+  &[data-radius="rounded"] {
+    border-radius: 8px;
   }
 }

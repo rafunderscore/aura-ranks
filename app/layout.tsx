@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 
+import { clsx } from "clsx";
+
+import styles from "@/styles/main.module.scss";
 import "@/styles/main.scss";
 import "@/styles/main.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const sans = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={clsx({
+          [styles.body]: true,
+          [sans.className]: true,
+          [GeistSans.variable]: true,
+          [GeistMono.variable]: true,
+        })}
+      >
+        {children}
+      </body>
     </html>
   );
 }

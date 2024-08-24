@@ -1,7 +1,12 @@
-@mixin box-shadow-float() {
-  box-shadow: 0px 1px 2px 0px var(--black-a1);
-}
+$shadows: (
+  "float": 0px 1px 2px 0px var(--black-a1),
+  "centered": 0px 0px 2px 0px var(--black-a1),
+);
 
-@mixin box-shadow-centered() {
-  box-shadow: 0px 0px 2px 0px var(--black-a1);
+@mixin box-shadow($key) {
+  @if map-has-key($shadows, $key) {
+    box-shadow: map-get($shadows, $key);
+  } @else {
+    @error "Shadow key `#{$key}` not found in the `$shadows` map. Available keys are: #{map-keys($shadows)}.";
+  }
 }
