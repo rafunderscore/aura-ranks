@@ -1,7 +1,7 @@
 import Island from "@/components/island";
 import styles from "./styles.module.scss";
 
-interface StatProps extends React.HTMLAttributes<HTMLDivElement> {
+interface StatProps {
   heading: string;
   standout: string;
   subtext?: string;
@@ -15,7 +15,6 @@ export const Stat = ({
   subtext,
   value,
   sign,
-  ...props
 }: StatProps) => {
   return (
     <Island>
@@ -26,7 +25,6 @@ export const Stat = ({
             {standout}
             {subtext && <sub>({subtext})</sub>}
           </div>
-          {/* <div className={styles.value}>+7.44%</div> */}
           {value && (
             <div data-sign={sign} className={styles.value}>
               {sign === "positive" ? "+" : "-"}
