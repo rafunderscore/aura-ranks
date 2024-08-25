@@ -1,10 +1,12 @@
 .icon {
   @include box-shadow("float");
   @include paragraph-semi-bold;
+  @include spring("smooth", 400ms);
   @include border("stroke-button", 1px, solid, 8px);
   display: flex;
   justify-content: center;
   align-items: center;
+
   cursor: pointer;
   border-radius: 8px;
   width: 32px;
@@ -57,5 +59,23 @@
 
   &[data-radius="rounded"] {
     border-radius: 8px;
+  }
+
+  &:hover {
+    @include background-color("background-white-hover");
+    transform: scale(0.975);
+  }
+}
+
+//
+@keyframes hover {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }

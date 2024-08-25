@@ -2,7 +2,7 @@ import styles from "./styles.module.scss";
 
 interface ContentBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   heading: React.ReactNode;
-  actions: React.ReactNode[];
+  actions: any[];
   items: React.ReactNode[];
   layout?: "row" | "grid";
 }

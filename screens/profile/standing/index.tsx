@@ -35,7 +35,7 @@ export const Standing = () => {
     <ContentBox
       heading="Profile Standing"
       actions={[
-        <IconButton>
+        <IconButton key="question-mark">
           <QuestionMarkIcon />
         </IconButton>,
       ]}
