@@ -38,6 +38,12 @@
       flex-direction: row;
     }
 
+    &[data-layout="graph"] {
+      > div {
+        height: 512px;
+      }
+    }
+
     > * {
       flex: 1 0 0;
     }

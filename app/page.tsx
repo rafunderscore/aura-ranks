@@ -9,6 +9,7 @@ export default async function Page() {
         <NavigationBar />
         <Profile.Header />
         <Profile.Standing />
+        <Profile.Insights />
       </div>
     </main>
   );

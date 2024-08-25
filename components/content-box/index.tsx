@@ -2,12 +2,18 @@ import styles from "./styles.module.scss";
 
 interface ContentBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   heading: React.ReactNode;
-  actions: any[];
+  actions: React.ReactNode[];
   items: React.ReactNode[];
-  layout?: "row" | "grid";
+  layout?: "row" | "grid" | "graph";
 }
 
-const ContentBox = ({ heading, actions, items, ...props }: ContentBoxProps) => (
+const ContentBox = ({
+  heading,
+  actions,
+  items,
+  layout,
+  ...props
+}: ContentBoxProps) => (
   <div className={styles.box}>
     <div className={styles.header}>
       <div className={styles.heading}>{heading}</div>
@@ -19,7 +25,7 @@ const ContentBox = ({ heading, actions, items, ...props }: ContentBoxProps) => (
         ))}
       </div>
     </div>
-    <div data-layout="row" className={styles.items}>
+    <div data-layout={layout} className={styles.items}>
       {items.map((item, index) => (
         <div key={index}>{item}</div>
       ))}
