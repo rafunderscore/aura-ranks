@@ -1,3 +1,4 @@
+import { MotionButton } from "@/components/framer-motion/button";
 import styles from "./styles.module.scss";
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -18,7 +19,7 @@ const Button = ({
   fit = false,
   ...props
 }: ButtonProps) => (
-  <button
+  <MotionButton
     data-fit={fit}
     data-radius={corners}
     data-variant={variant}
@@ -27,7 +28,7 @@ const Button = ({
     className={styles.button}
   >
     <span>{props.children}</span>
-  </button>
+  </MotionButton>
 );
 
 export default Button;

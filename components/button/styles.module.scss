@@ -6,6 +6,7 @@
   align-items: center;
   cursor: pointer;
   height: 32px;
+  user-select: none;
 
   &[data-radius="circle"] {
     border-radius: 50%;
@@ -27,18 +28,6 @@
     min-width: 128px;
   }
 
-  &[data-size="1"] {
-  }
-
-  &[data-size="2"] {
-  }
-
-  &[data-size="3"] {
-  }
-
-  &[data-size="4"] {
-  }
-
   &[data-variant="primary"] {
     @include background-color("background-black");
     @include color("text-white-primary");
@@ -47,9 +36,6 @@
   &[data-variant="secondary"] {
     @include background-color("background-white");
     @include border("stroke-button", 1px, solid, 8px);
-  }
-
-  &[data-variant="tertiary"] {
   }
 
   &[data-disabled="true"] {

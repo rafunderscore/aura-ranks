@@ -1,3 +1,4 @@
+import { MotionButton } from "@/components/framer-motion/button";
 import styles from "./styles.module.scss";
 
 interface IconButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -17,17 +18,19 @@ const IconButton = ({
   disabled = false,
   background = undefined,
   ...props
-}: IconButtonProps) => (
-  <div
-    data-radius={corners}
-    data-variant={variant}
-    data-loading={loading}
-    data-disabled={disabled}
-    data-background={background}
-    className={styles.icon}
-  >
-    {props.children}
-  </div>
-);
+}: IconButtonProps) => {
+  return (
+    <MotionButton
+      data-radius={corners}
+      data-variant={variant}
+      data-loading={loading}
+      data-disabled={disabled}
+      data-background={background}
+      className={styles.icon}
+    >
+      {props.children}
+    </MotionButton>
+  );
+};
 
 export default IconButton;

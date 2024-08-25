@@ -1,7 +1,6 @@
 .icon {
   @include box-shadow("float");
   @include paragraph-semi-bold;
-  @include spring("smooth", 400ms);
   @include border("stroke-button", 1px, solid, 8px);
   display: flex;
   justify-content: center;
@@ -11,28 +10,11 @@
   border-radius: 8px;
   width: 32px;
   height: 32px;
-
-  &[data-size="1"] {
-  }
-
-  &[data-size="2"] {
-  }
-
-  &[data-size="3"] {
-  }
-
-  &[data-size="4"] {
-  }
+  user-select: none;
 
   &[data-variant="primary"] {
     @include background-color("background-white");
     @include color("text-black-secondary");
-  }
-
-  &[data-variant="secondary"] {
-  }
-
-  &[data-variant="tertiary"] {
   }
 
   &[data-background] {
@@ -61,21 +43,12 @@
     border-radius: 8px;
   }
 
-  &:hover {
-    @include background-color("background-white-hover");
-    transform: scale(0.975);
-  }
-}
+  &[data-disabled="true"] {
+    opacity: 0.4;
+    pointer-events: none;
 
-//
-@keyframes hover {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
+    &:hover {
+      cursor: help;
+    }
   }
 }
