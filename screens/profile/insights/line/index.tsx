@@ -1,6 +1,7 @@
 "use client";
 
 import { ResponsiveLineCanvas } from "@nivo/line";
+
 import { data } from "./data";
 
 const LineChart = () => {

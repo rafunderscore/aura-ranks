@@ -1,7 +1,8 @@
 import { QuestionMarkIcon } from "@radix-ui/react-icons";
 
-import IconButton from "@/components/icon-button";
 import ContentBox from "@/components/content-box";
+import IconButton from "@/components/icon-button";
+
 import LineChart from "./line";
 
 export const Insights = () => {

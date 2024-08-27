@@ -1,14 +1,15 @@
-import styles from "@/screens/profile/header/styles.module.scss";
-import Image from "next/image";
 import {
   CalendarIcon,
   DotsHorizontalIcon,
   DrawingPinIcon,
   Link1Icon,
 } from "@radix-ui/react-icons";
-import Label from "@/components/label";
+import Image from "next/image";
+
 import Button from "@/components/button";
 import IconButton from "@/components/icon-button";
+import Label from "@/components/label";
+import styles from "@/screens/profile/header/styles.module.scss";
 
 const MOCK_USER = {
   name: "Jordan Terrell Carter",

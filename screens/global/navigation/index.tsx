@@ -1,6 +1,7 @@
-import IconButton from "@/components/icon-button";
-import styles from "./styles.module.scss";
 import Button from "@/components/button";
+import IconButton from "@/components/icon-button";
+
+import styles from "./styles.module.scss";
 import { Search } from "../search/index";
 
 const MOCK_DATA = {

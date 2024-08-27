@@ -1,7 +1,5 @@
 {
-    "editor.formatOnSave": true,
-    "notebook.formatOnSave.enabled": true,
-    "exportall.config.folderListener": [
-        "/screens/profile"
-    ]
+  "editor.formatOnSave": true,
+  "notebook.formatOnSave.enabled": true,
+  "exportall.config.folderListener": ["/screens/profile"]
 }

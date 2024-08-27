@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-
 import { clsx } from "clsx";
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
+import { Inter } from "next/font/google";
 
 import styles from "@/styles/main.module.scss";
+
+import type { Metadata } from "next";
 import "@/styles/main.scss";
 import "@/styles/main.css";
 

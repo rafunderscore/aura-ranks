@@ -1,4 +1,5 @@
 import Island from "@/components/island";
+
 import styles from "./styles.module.scss";
 
 interface StatProps {

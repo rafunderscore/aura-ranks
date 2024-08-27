@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+
 import styles from "./styles.module.scss";
 
 export const Search = () => {
