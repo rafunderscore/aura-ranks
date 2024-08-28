@@ -1,14 +1,14 @@
 import styles from "./styles.module.scss";
 
 interface LabelProps extends React.HTMLAttributes<HTMLDivElement> {
-  icon: React.ReactNode;
-  text: string | number | React.ReactNode;
+  leading: React.ReactNode;
+  trailing: string | number | React.ReactNode;
 }
 
-const Label = ({ icon, text, ...props }: LabelProps) => (
+const Label = ({ leading, trailing, ...props }: LabelProps) => (
   <div {...props} className={styles.label}>
-    {icon}
-    <p>{text}</p>
+    <div className={styles.leading}>{leading}</div>
+    <div className={styles.trailing}>{trailing}</div>
   </div>
 );
 

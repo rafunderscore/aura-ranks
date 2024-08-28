@@ -4,11 +4,17 @@
   align-items: center;
   gap: 8px;
 
-  svg {
+  .leading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @include color("text-black-primary");
   }
 
-  p {
+  .trailing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @include paragraph-regular;
     @include color("text-black-secondary");
   }

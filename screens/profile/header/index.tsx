@@ -11,6 +11,8 @@ import IconButton from "@/components/icon-button";
 import Label from "@/components/label";
 import styles from "@/screens/profile/header/styles.module.scss";
 
+import { User } from "@/lib/types/supabase";
+
 const MOCK_USER = {
   name: "Jordan Terrell Carter",
   username: "playboicarti",
@@ -23,47 +25,65 @@ const MOCK_USER = {
   followers: 230231,
 };
 
-export const Header = () => {
-  const formatter = new Intl.NumberFormat("en-US", {
-    notation: "compact",
-    compactDisplay: "short",
-    maximumFractionDigits: 1,
-  });
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  user: User;
+}
+
+export const Header = ({ user }: HeaderProps) => {
+  const formatter = {
+    number: new Intl.NumberFormat("en-US", {
+      notation: "compact",
+      compactDisplay: "short",
+      maximumFractionDigits: 1,
+    }),
+    date: new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+    }),
+  };
+
+  console.log("WITHIN HEADER", user);
 
   return (
     <div className={styles.header}>
       <div className={styles.avatar}>
         <Image
-          src={MOCK_USER.avatar}
-          alt={MOCK_USER.name}
+          src={`https://avatar.vercel.sh/${user.username}`}
+          alt={"Profile Picture"}
           width={128}
           height={128}
         />
       </div>
       <div className={styles.details}>
         <div className={styles.heading}>
-          <h1>{MOCK_USER.name}</h1>
-          <h2>@{MOCK_USER.username}</h2>
+          <h1>{user.display_name}</h1>
+          <h2>@{user.username}</h2>
         </div>
-        <p>{MOCK_USER.bio}</p>
+        <p className={styles.bio}> {user.bio}</p>
         <div className={styles.additional}>
-          <p>
-            <strong>{MOCK_USER.following}</strong> Following
-          </p>
-          <p>
-            <strong>{formatter.format(MOCK_USER.followers)}</strong> Followers
-          </p>
-          <Label icon={<CalendarIcon />} text={MOCK_USER.joined} />
-          <Label icon={<DrawingPinIcon />} text={MOCK_USER.location} />
+          <Label leading={user.following_count} trailing="Followers" />
           <Label
-            icon={<Link1Icon />}
-            text={
+            leading={formatter.number.format(user.followers_count ?? 0)}
+            trailing="Followers"
+          />
+          <Label
+            leading={<CalendarIcon />}
+            trailing={
+              "Joined " +
+              formatter.date.format(
+                user.created_at ? new Date(user.created_at) : undefined,
+              )
+            }
+          />
+          <Label leading={<DrawingPinIcon />} trailing={user.world_location} />
+          <Label
+            leading={<Link1Icon />}
+            trailing={
               <a
-                href={MOCK_USER.website}
+                href={user.website ? user.website : "https://playboicarti.com"}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {MOCK_USER.website}
+                {user.website}
               </a>
             }
           />

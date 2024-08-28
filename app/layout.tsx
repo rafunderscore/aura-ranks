@@ -8,6 +8,7 @@ import styles from "@/styles/main.module.scss";
 import type { Metadata } from "next";
 import "@/styles/main.scss";
 import "@/styles/main.css";
+import NavigationBar from "@/screens/global/navigation";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -35,7 +36,10 @@ export default function RootLayout({
           [GeistMono.variable]: true,
         })}
       >
-        {children}
+        <main className={styles.main}>
+          <NavigationBar />
+          <div className={styles.content}>{children}</div>
+        </main>
       </body>
     </html>
   );
