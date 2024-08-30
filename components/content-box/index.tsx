@@ -4,7 +4,7 @@ interface ContentBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   heading: React.ReactNode;
   actions: React.ReactNode[];
   items: React.ReactNode[];
-  layout?: "row" | "grid" | "graph";
+  layout?: "row" | "grid" | "graph" | "evaluations";
 }
 
 const ContentBox = ({

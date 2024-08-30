@@ -44,6 +44,11 @@
       }
     }
 
+    &[data-layout="evaluations"] {
+      flex-direction: column;
+      gap: 4px;
+    }
+
     > * {
       flex: 1 0 0;
     }

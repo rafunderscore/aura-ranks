@@ -1,21 +1,30 @@
 import ContentBox from "@/components/content-box";
 import IconButton from "@/components/icon-button";
 import { QuestionMarkIcon } from "@radix-ui/react-icons";
-import { Stat } from "../standing/stat";
 
-export const Standing = () => {
+import * as Profile from "@/screens/profile";
+import { UserEvaluation } from "@/lib/types/supabase";
+
+interface EvaluationsProps extends React.HTMLAttributes<HTMLDivElement> {
+  evaluations: UserEvaluation[];
+}
+
+export const Evaluations = ({ evaluations }: EvaluationsProps) => {
   return (
-    <></>
-    // <ContentBox
-    //   heading="Profile Standing"
-    //   actions={[
-    //     <IconButton key="question-mark">
-    //       <QuestionMarkIcon />
-    //     </IconButton>,
-    //   ]}
-    //   items={Object.values(MOCK_STATS).map(({ key, ...stat }) => (
-    //     <Stat heading={""} standout={""} key={key} {...stat} />
-    //   ))}
-    // />
+    <ContentBox
+      layout="evaluations"
+      heading={`Evaluations (${evaluations.length})`}
+      actions={[
+        <IconButton key="question-mark">
+          <QuestionMarkIcon />
+        </IconButton>,
+      ]}
+      items={evaluations.map((evaluation) => (
+        <Profile.Evaluation
+          evaluation={evaluation}
+          end={evaluations.indexOf(evaluation) === evaluations.length - 1}
+        />
+      ))}
+    />
   );
 };

@@ -13,18 +13,6 @@ import styles from "@/screens/profile/header/styles.module.scss";
 
 import { User } from "@/lib/types/supabase";
 
-const MOCK_USER = {
-  name: "Jordan Terrell Carter",
-  username: "playboicarti",
-  bio: "Jordan Terrell Carter, known professionally as Playboi Carti, is an American rapper and record producer from Atlanta, Georgia. An influential figure among his generation, he has contributed to the progression of trap music and its rage subgenre.",
-  avatar: "https://i.scdn.co/image/ab6761610000e5eb73d4facbd619ae025b5588c7",
-  location: "Atlanta, Georgia",
-  website: "https://playboicarti.com",
-  joined: "Joined October 2024",
-  following: 10,
-  followers: 230231,
-};
-
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   user: User;
 }
@@ -40,8 +28,6 @@ export const Header = ({ user }: HeaderProps) => {
       dateStyle: "medium",
     }),
   };
-
-  console.log("WITHIN HEADER", user);
 
   return (
     <div className={styles.header}>

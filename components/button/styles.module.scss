@@ -28,6 +28,19 @@
     min-width: 128px;
   }
 
+  &[data-fit="square"] {
+    padding: 0px;
+    width: 32px;
+    height: 32px;
+
+    > span {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
   &[data-variant="primary"] {
     @include background-color("background-black");
     @include color("text-white-primary");
@@ -36,6 +49,12 @@
   &[data-variant="secondary"] {
     @include background-color("background-white");
     @include border("stroke-button", 1px, solid, 8px);
+  }
+
+  &[data-variant="tertiary"] {
+    @include background-color("background-white");
+    border: none;
+    box-shadow: none;
   }
 
   &[data-disabled="true"] {

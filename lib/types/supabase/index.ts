@@ -10,6 +10,13 @@ export type Json =
 
 export type Analytic = Database["public"]["Tables"]["analytics"]["Row"]
 export type Evaluation = Database["public"]["Tables"]["evaluations"]["Row"]
+export type UserEvaluation = Database["public"]["Tables"]["evaluations"]["Row"] & {
+  evaluator: Pick<
+    User,
+    "id" | "username" | "display_name" | "avatar_url"
+  > | null;
+};
+
 export type Follow = Database["public"]["Tables"]["follows"]["Row"]
 export type User = Database["public"]["Tables"]["users"]["Row"]
 

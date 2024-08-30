@@ -8,7 +8,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   corners?: "circle" | "rounded";
   loading?: boolean;
   disabled?: boolean;
-  fit?: boolean;
+  fit?: boolean | "square";
 }
 
 const Button = ({
