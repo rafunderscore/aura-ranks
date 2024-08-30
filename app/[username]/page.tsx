@@ -4,21 +4,20 @@ import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 
 import * as Profile from "@/screens/profile";
-import { Evaluation, User } from "@/lib/types/supabase";
+import { User, UserEvaluation } from "@/lib/types/supabase";
 
 import { useParams } from "next/navigation";
 
 export default function Page() {
   const { username } = useParams();
   const [user, setUser] = useState<User | null>(null);
-  const [evaluations, setEvaluations] = useState<Evaluation[]>([]);
+  const [evaluations, setEvaluations] = useState<UserEvaluation[]>([]);
 
   const supabase = createClient();
 
   useEffect(() => {
     const getData = async () => {
       try {
-        // Fetch the user based on the username
         const { data: userData, error: userError } = await supabase
           .from("users")
           .select("*")
@@ -31,7 +30,6 @@ export default function Page() {
           setUser(userData);
           console.log("User", userData);
 
-          // Fetch evaluations for the user with explicit relationship aliasing
           const { data: evaluationsData, error: evaluationsError } =
             await supabase
               .from("evaluations")
@@ -48,7 +46,7 @@ export default function Page() {
           }
         }
       } catch (error) {
-        console.error("Error fetching data:", error.message);
+        console.error("Error fetching data:", (error as Error).message);
       }
     };
 

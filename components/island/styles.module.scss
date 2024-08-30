@@ -1,5 +1,5 @@
 .island {
-  @include background-color("background-grey");
+  @include background-color("gray-2");
   @include border($radius: 16px);
   display: flex;
   flex: 1 0 0;
@@ -10,13 +10,8 @@
 
   .container {
     @include box-shadow("centered");
-    @include background-color("background-white");
-    @include border(
-      $key: "stroke-button",
-      $width: 1px,
-      $style: solid,
-      $radius: 12px
-    );
+    @include background-color("white-12");
+    @include border($key: "gray-6", $width: 1px, $style: solid, $radius: 12px);
 
     display: flex;
     flex: 1 0 0;

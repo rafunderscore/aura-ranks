@@ -1,6 +1,6 @@
 $shadows: (
-  "float": 0px 1px 2px 0px var(--black-a1),
-  "centered": 0px 0px 2px 0px var(--black-a1),
+  "float": 0px 1px 2px 0px var(--black-1),
+  "centered": 0px 0px 2px 0px var(--black-1),
 );
 
 @mixin box-shadow($key) {

@@ -42,17 +42,17 @@
   }
 
   &[data-variant="primary"] {
-    @include background-color("background-black");
-    @include color("text-white-primary");
+    @include background-color("black-12");
+    @include color("white-12");
   }
 
   &[data-variant="secondary"] {
-    @include background-color("background-white");
-    @include border("stroke-button", 1px, solid, 8px);
+    @include background-color("white-12");
+    @include border("gray-6", 1px, solid, 8px);
   }
 
   &[data-variant="tertiary"] {
-    @include background-color("background-white");
+    @include background-color("white-12");
     border: none;
     box-shadow: none;
   }

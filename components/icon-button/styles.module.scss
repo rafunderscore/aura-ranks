@@ -1,7 +1,7 @@
 .icon {
   @include box-shadow("float");
   @include paragraph-semi-bold;
-  @include border("stroke-button", 1px, solid, 8px);
+  @include border("gray-6", 1px, solid, 8px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,8 +13,8 @@
   user-select: none;
 
   &[data-variant="primary"] {
-    @include background-color("background-white");
-    @include color("text-black-secondary");
+    @include background-color("white-12");
+    @include color("black-6");
   }
 
   &[data-background] {
@@ -23,9 +23,9 @@
         background-color: map-get($colors, $name);
 
         @if isLight($color) {
-          color: map-get($colors, "text-black-primary");
+          color: map-get($colors, "black-12");
         } @else {
-          color: map-get($colors, "text-white-primary");
+          color: map-get($colors, "white-12");
         }
       }
     }

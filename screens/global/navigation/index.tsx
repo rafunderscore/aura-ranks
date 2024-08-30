@@ -27,7 +27,7 @@ const NavigationBar = () => {
           <Button fit variant="secondary">
             AP {MOCK_DATA.ap}
           </Button>
-          <IconButton background="background-orange">9</IconButton>
+          <IconButton background="orange-10">9</IconButton>
           <IconButton corners="circle">RS</IconButton>
         </div>
       </div>

@@ -7,7 +7,7 @@
   width: 100%;
 
   .heading {
-    @include color("text-black-secondary");
+    @include color("black-6");
   }
 
   .details {
@@ -18,7 +18,7 @@
 
     .standout {
       @include paragraph-semi-bold;
-      @include color("text-black-primary");
+      @include color("black-12");
 
       display: flex;
       align-items: baseline;
@@ -26,7 +26,7 @@
 
       > sub {
         @include paragraph-regular;
-        @include color("text-black-secondary");
+        @include color("black-6");
       }
     }
 
@@ -36,11 +36,11 @@
       gap: 4px;
 
       &[data-sign="positive"] {
-        @include color("text-green-primary");
+        @include color("green-10");
       }
 
       &[data-sign="negative"] {
-        @include color("text-red-primary");
+        @include color("red-10");
       }
     }
   }
