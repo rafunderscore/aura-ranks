@@ -1,5 +1,13 @@
 @import "./radix-colors";
 
+@function get-color($key) {
+  @if map-has-key($colors, $key) {
+    @return map-get($colors, $key);
+  } @else {
+    @error "Color key `#{$key}` not found in the `$colors` map. Available keys are: #{map-keys($colors)}.";
+  }
+}
+
 @mixin color($key) {
   @if map-has-key($colors, $key) {
     color: map-get($colors, $key);

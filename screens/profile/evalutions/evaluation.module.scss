@@ -22,15 +22,17 @@
       .avatar {
         width: 40px;
         height: 40px;
+        border-width: 1px;
+        border-style: solid;
         border-radius: 999px;
-        border: 1px solid var(--Stroke-Primary, #ebebeb);
-        background: var(--Background-Blue, #0588f0);
+        border-color: get-color("gray-6");
+        overflow: hidden;
       }
 
       .seperator {
-        width: 2px;
+        width: 1px;
         flex: 1 0 0;
-        background: var(--Stroke-Primary, #ebebeb);
+        background-color: get-color("gray-6");
       }
     }
 
@@ -57,6 +59,51 @@
             display: flex;
             align-items: center;
             gap: 4px;
+
+            :nth-child(1) {
+              @include paragraph-semi-bold;
+            }
+
+            :nth-child(2) {
+              @include color("black-6");
+            }
+
+            :nth-child(3) {
+              height: 18px;
+
+              display: flex;
+              padding: 0px 8px;
+              justify-content: center;
+              align-items: center;
+              border-radius: 4px;
+
+              > p {
+                font-size: 12px !important;
+                line-height: 12px !important;
+              }
+            }
+
+            :nth-child(3)[data-evaluation-type="positive"] {
+              @include background-color("green-4");
+
+              > p {
+                @include color("green-10");
+                @include paragraph-semi-bold;
+              }
+            }
+
+            :nth-child(3)[data-evaluation-type="negative"] {
+              @include background-color("red-4");
+              > p {
+                @include color("red-10");
+                @include paragraph-semi-bold;
+              }
+            }
+          }
+
+          :nth-child(2),
+          :nth-child(3) {
+            @include color("black-6");
           }
         }
       }
@@ -74,9 +121,9 @@
     align-self: stretch;
 
     .seperator {
-      width: 2px;
+      width: 1px;
       flex: 1 0 0;
-      background: var(--Stroke-Primary, #ebebeb);
+      background-color: get-color("gray-6");
     }
   }
 
