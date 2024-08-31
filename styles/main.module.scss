@@ -1,13 +1,14 @@
 .body {
-  @include paragraph-regular();
-  padding-top: 24px;
+  @include paragraph-regular;
+
   max-width: 1024px;
   margin: 0 auto;
+  padding-top: 24px;
 
   .main {
+    position: relative;
     display: flex;
     flex-direction: column;
-    position: relative;
     gap: 48px;
 
     .content {

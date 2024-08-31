@@ -1,25 +1,20 @@
 /** @type {import('stylelint').Config} */
 export default {
-  ignoreFiles: [
-    "styles/scss/_colors.scss",
-    "styles/scss/_shadows.scss",
-    "styles/scss/_helpers.scss",
-    "styles/scss/_animations.scss",
-    "styles/scss/_typography.scss",
-    "styles/scss/_breakpoints.scss",
-  ],
+  ignoreFiles: ["styles/scss/**/*"],
   extends: ["stylelint-config-standard", "stylelint-config-recommended-scss"],
   plugins: ["stylelint-order"],
   overrides: [
     {
       files: ["*.scss", "**/*.scss"],
       rules: {
+        "no-empty-source": null,
         "import-notation": "string",
         "at-rule-empty-line-before": "never",
         "selector-class-pattern": null,
         "keyframes-name-pattern": null,
         "no-descending-specificity": null,
         "no-duplicate-selectors": null,
+        "scss/no-global-function-names": null,
         "scss/at-if-no-null": null,
         "scss/at-rule-conditional-no-parentheses": true,
         "scss/at-if-closing-brace-space-after": "always-intermediate",

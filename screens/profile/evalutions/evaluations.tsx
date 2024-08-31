@@ -1,9 +1,9 @@
-import ContentBox from "@/components/content-box";
-import IconButton from "@/components/icon-button";
 import { QuestionMarkIcon } from "@radix-ui/react-icons";
 
-import * as Profile from "@/screens/profile";
+import ContentBox from "@/components/content-box";
+import IconButton from "@/components/icon-button";
 import { UserEvaluation } from "@/lib/types/supabase";
+import * as Profile from "@/screens/profile";
 
 interface EvaluationsProps extends React.HTMLAttributes<HTMLDivElement> {
   evaluations: UserEvaluation[];

@@ -1,6 +1,9 @@
-import { fixupConfigRules } from "@eslint/compat";
+import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
+import typescriptEslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import _import from "eslint-plugin-import";
 import globals from "globals";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,42 +20,74 @@ const compat = new FlatCompat({
 export default [
   ...fixupConfigRules(
     compat.extends(
+      "plugin:@next/next/recommended",
       "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
       "plugin:import/errors",
       "plugin:import/warnings",
       "plugin:import/typescript",
-      "plugin:react/recommended",
-      "plugin:react/jsx-runtime",
-      "plugin:react-hooks/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/parser",
       "prettier",
     ),
   ),
   {
+    ignores: [
+      "**/next.config.mjs",
+      "**/scripts/**/*",
+      "**/openapi/**/*",
+      "**/public/**/*",
+      ".next/**/*",
+    ],
+  },
+  {
     files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
   },
   {
+    plugins: {
+      "@typescript-eslint": fixupPluginRules(typescriptEslint),
+      import: fixupPluginRules(_import),
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
       },
+
+      parser: tsParser,
+
+      ecmaVersion: 2021,
+      sourceType: "module",
+
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+
+        project: "./tsconfig.json",
+      },
     },
     settings: {
-      react: {
-        version: "detect",
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx", ".js", ".jsx"],
       },
       "import/resolver": {
         node: {
-          paths: ["."],
           extensions: [".js", ".jsx", ".ts", ".tsx"],
+          paths: ["src"],
+        },
+        typescript: {
+          alwaysTryTypes: true,
+          project: "./tsconfig.json",
         },
       },
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "error",
       "@typescript-eslint/no-explicit-any": "off",
+      "import/newline-after-import": "error",
+      "import/no-named-as-default": "off",
+      "import/no-duplicates": "error",
+      "import/no-unresolved": "error",
+      "import/export": "error",
       "import/order": [
         "error",
         {
@@ -78,10 +113,6 @@ export default [
           },
         },
       ],
-      "import/newline-after-import": "error",
-      "import/no-duplicates": "error",
-      "import/no-unresolved": "error",
-      "import/no-named-as-default": "off",
     },
   },
 ];

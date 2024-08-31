@@ -11,7 +11,7 @@ interface IconButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   background?: string | undefined;
 }
 
-const IconButton = ({
+export const IconButton = ({
   size = "2",
   variant = "primary",
   corners = "rounded",
@@ -22,6 +22,7 @@ const IconButton = ({
 }: IconButtonProps) => {
   return (
     <MotionButton
+      data-size={size}
       data-radius={corners}
       data-variant={variant}
       data-loading={loading}

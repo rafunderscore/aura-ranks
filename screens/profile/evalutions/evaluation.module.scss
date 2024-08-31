@@ -6,42 +6,42 @@
 
   .content {
     display: flex;
-    width: 1024px;
     align-items: center;
     gap: 16px;
+    width: 1024px;
 
     .left {
       display: flex;
-      width: 40px;
+      flex-shrink: 0;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      flex-shrink: 0;
       align-self: stretch;
+      gap: 4px;
+      width: 40px;
 
       .avatar {
+        overflow: hidden;
         width: 40px;
         height: 40px;
         border-width: 1px;
         border-style: solid;
-        border-radius: 999px;
         border-color: get-color("gray-6");
-        overflow: hidden;
+        border-radius: 999px;
       }
 
       .seperator {
-        width: 1px;
         flex: 1 0 0;
+        width: 1px;
         background-color: get-color("gray-6");
       }
     }
 
     .right {
       display: flex;
+      flex: 1 0 0;
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
-      flex: 1 0 0;
 
       .heading {
         display: flex;
@@ -52,8 +52,8 @@
         .text {
           display: flex;
           align-items: center;
-          gap: 8px;
           align-self: stretch;
+          gap: 8px;
 
           .sentence {
             display: flex;
@@ -69,12 +69,11 @@
             }
 
             :nth-child(3) {
-              height: 18px;
-
               display: flex;
-              padding: 0px 8px;
               justify-content: center;
               align-items: center;
+              height: 18px;
+              padding: 0 8px;
               border-radius: 4px;
 
               > p {
@@ -94,6 +93,7 @@
 
             :nth-child(3)[data-evaluation-type="negative"] {
               @include background-color("red-4");
+
               > p {
                 @include color("red-10");
                 @include paragraph-semi-bold;
@@ -112,17 +112,17 @@
 
   [data-evaluation-seperator="true"] {
     display: flex;
-    height: 8px;
-    width: 40px;
+    flex-shrink: 0;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
     align-self: stretch;
+    gap: 4px;
+    width: 40px;
+    height: 8px;
 
     .seperator {
-      width: 1px;
       flex: 1 0 0;
+      width: 1px;
       background-color: get-color("gray-6");
     }
   }

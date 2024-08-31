@@ -25,14 +25,12 @@
 
       .links {
         @include color("black-6");
+
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 16px;
       }
-    }
-
-    .center {
     }
 
     .right {

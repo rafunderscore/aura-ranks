@@ -1,8 +1,8 @@
 import styles from "./styles.module.scss";
 
-interface IslandProps extends React.HTMLAttributes<HTMLDivElement> {}
+type IslandProps = React.HTMLAttributes<HTMLDivElement>;
 
-const Island = ({ ...props }: IslandProps) => (
+export const Island = ({ ...props }: IslandProps) => (
   <div className={styles.island} style={props.style}>
     <div className={styles.container}>{props.children}</div>
   </div>

@@ -2,7 +2,7 @@
 
 import { motion, HTMLMotionProps } from "framer-motion";
 
-interface MotionButtonProps extends HTMLMotionProps<"div"> {}
+type MotionButtonProps = HTMLMotionProps<"div">;
 
 export const MotionButton = (props: MotionButtonProps) => {
   return (

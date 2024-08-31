@@ -7,12 +7,11 @@ interface ContentBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   layout?: "row" | "grid" | "graph" | "evaluations";
 }
 
-const ContentBox = ({
+export const ContentBox = ({
   heading,
   actions,
   items,
   layout,
-  ...props
 }: ContentBoxProps) => (
   <div className={styles.box}>
     <div className={styles.header}>

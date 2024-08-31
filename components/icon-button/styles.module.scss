@@ -2,14 +2,14 @@
   @include box-shadow("float");
   @include paragraph-semi-bold;
   @include border("gray-6", 1px, solid, 8px);
+
   display: flex;
   justify-content: center;
   align-items: center;
-
-  cursor: pointer;
-  border-radius: 8px;
   width: 32px;
   height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
   user-select: none;
 
   &[data-variant="primary"] {
@@ -20,13 +20,13 @@
   &[data-background] {
     @each $name, $color in $colors {
       &[data-background="#{$name}"] {
-        background-color: map-get($colors, $name);
-
         @if isLight($color) {
           color: map-get($colors, "black-12");
         } @else {
           color: map-get($colors, "white-12");
         }
+
+        background-color: map-get($colors, $name);
       }
     }
   }

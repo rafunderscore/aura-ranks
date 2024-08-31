@@ -1,6 +1,7 @@
 .island {
   @include background-color("gray-2");
   @include border($radius: 16px);
+
   display: flex;
   flex: 1 0 0;
   justify-content: center;

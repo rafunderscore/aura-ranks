@@ -1,14 +1,13 @@
 import { clsx } from "clsx";
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import { Inter } from "next/font/google";
 
+import NavigationBar from "@/screens/global/navigation";
 import styles from "@/styles/main.module.scss";
 
 import type { Metadata } from "next";
+
 import "@/styles/main.scss";
 import "@/styles/main.css";
-import NavigationBar from "@/screens/global/navigation";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -32,8 +31,6 @@ export default function RootLayout({
         className={clsx({
           [styles.body]: true,
           [sans.className]: true,
-          [GeistSans.variable]: true,
-          [GeistMono.variable]: true,
         })}
       >
         <main className={styles.main}>

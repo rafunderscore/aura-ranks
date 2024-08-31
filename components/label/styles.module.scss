@@ -5,17 +5,19 @@
   gap: 8px;
 
   .leading {
+    @include color("black-12");
+
     display: flex;
     justify-content: center;
     align-items: center;
-    @include color("black-12");
   }
 
   .trailing {
+    @include paragraph-regular;
+    @include color("black-6");
+
     display: flex;
     justify-content: center;
     align-items: center;
-    @include paragraph-regular;
-    @include color("black-6");
   }
 }

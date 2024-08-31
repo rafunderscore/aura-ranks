@@ -13,7 +13,7 @@
     align-self: stretch;
 
     .heading {
-      @include paragraph-semi-bold();
+      @include paragraph-semi-bold;
     }
 
     .actions {

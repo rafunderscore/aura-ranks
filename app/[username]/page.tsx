@@ -1,12 +1,11 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import * as Profile from "@/screens/profile";
 import { User, UserEvaluation } from "@/lib/types/supabase";
-
-import { useParams } from "next/navigation";
+import * as Profile from "@/screens/profile";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Page() {
   const { username } = useParams();

@@ -11,7 +11,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   fit?: boolean | "square";
 }
 
-const Button = ({
+export const Button = ({
   size = "2",
   variant = "primary",
   corners = "rounded",
@@ -22,6 +22,7 @@ const Button = ({
 }: ButtonProps) => (
   <MotionButton
     data-fit={fit}
+    data-size={size}
     data-radius={corners}
     data-variant={variant}
     data-loading={loading}

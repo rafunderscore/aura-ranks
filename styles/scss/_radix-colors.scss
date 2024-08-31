@@ -33,12 +33,9 @@ $radix-colors: (
   "black",
   "white"
 );
-
 $radix-scales: ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
-
 @function generate-radix-colors($colors, $scales) {
   $map: ();
-
   @each $color in $colors {
     @each $scale in $scales {
       $key: #{$color}-#{$scale};
@@ -51,7 +48,6 @@ $radix-scales: ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
       );
     }
   }
-
   @return $map;
 }
 

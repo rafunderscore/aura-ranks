@@ -1,11 +1,12 @@
-import { UserEvaluation } from "@/lib/types/supabase";
-
-import styles from "./evaluation.module.scss";
-import Island from "@/components/island";
-import Button from "@/components/button";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { intlFormatDistance } from "date-fns";
 import Image from "next/image";
+
+import Button from "@/components/button";
+import Island from "@/components/island";
+import { UserEvaluation } from "@/lib/types/supabase";
+
+import styles from "./evaluation.module.scss";
 
 interface EvaluationProps extends React.HTMLAttributes<HTMLDivElement> {
   evaluation: UserEvaluation;

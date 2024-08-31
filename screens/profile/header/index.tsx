@@ -9,9 +9,8 @@ import Image from "next/image";
 import Button from "@/components/button";
 import IconButton from "@/components/icon-button";
 import Label from "@/components/label";
-import styles from "@/screens/profile/header/styles.module.scss";
-
 import { User } from "@/lib/types/supabase";
+import styles from "@/screens/profile/header/styles.module.scss";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   user: User;
