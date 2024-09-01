@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CalendarIcon,
   DotsHorizontalIcon,
@@ -32,16 +34,17 @@ export const Header = ({ user }: HeaderProps) => {
     <div className={styles.header}>
       <div className={styles.avatar}>
         <Image
-          src={`https://avatar.vercel.sh/${user.username}`}
+          src={user.avatar_url ?? ""}
           alt={"Profile Picture"}
           width={128}
+          unoptimized
           height={128}
         />
       </div>
       <div className={styles.details}>
         <div className={styles.heading}>
           <h1>{user.display_name}</h1>
-          <h2>@{user.username}</h2>
+          <h2>{user.username}</h2>
         </div>
         <p className={styles.bio}> {user.bio}</p>
         <div className={styles.additional}>

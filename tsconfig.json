@@ -23,11 +23,14 @@
   },
   "include": [
     "next-env.d.ts",
+    "**/*.js",
+    "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
     "eslint.config.mjs",
-    "stylelint.config.mjs"
+    "stylelint.config.mjs",
+    "utils/supabase/insert.js"
   ],
   "exclude": ["node_modules"]
 }

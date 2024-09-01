@@ -17,13 +17,13 @@ export default {
         "scss/no-global-function-names": null,
         "scss/at-if-no-null": null,
         "scss/at-rule-conditional-no-parentheses": true,
-        "scss/at-if-closing-brace-space-after": "always-intermediate",
-        "scss/at-else-closing-brace-space-after": "always-intermediate",
-        "scss/dollar-variable-colon-space-after": "always-single-line",
-        "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
-        "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
         "scss/at-else-if-parentheses-space-before": "always",
         "scss/double-slash-comment-whitespace-inside": "always",
+        "scss/at-if-closing-brace-space-after": "always-intermediate",
+        "scss/dollar-variable-colon-space-after": "always-single-line",
+        "scss/at-else-closing-brace-space-after": "always-intermediate",
+        "scss/at-if-closing-brace-newline-after": "always-last-in-chain",
+        "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
         "scss/dollar-variable-empty-line-before": [
           "always",
           {

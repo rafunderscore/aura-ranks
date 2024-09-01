@@ -4,12 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm lint && next build",
     "start": "next start",
     "lint": "node ./scripts/lint.js",
-    "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > lib/types/database.types.ts"
+    "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > lib/types/database.types.ts",
+    "supabase:insert": "node ./utils/supabase/scripts/insert.js"
   },
   "dependencies": {
+    "@dicebear/collection": "^9.2.1",
+    "@dicebear/core": "^9.2.1",
     "@nivo/core": "^0.87.0",
     "@nivo/line": "^0.87.0",
     "@radix-ui/colors": "^3.0.0",
@@ -44,16 +47,19 @@
     "@radix-ui/react-tooltip": "1.1.2",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "axios": "^1.7.7",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.3.30",
     "geist": "^1.3.1",
     "next": "14.2.7",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
+    "@faker-js/faker": "^8.4.1",
     "@hey-api/openapi-ts": "^0.52.11",
     "@types/lodash": "^4.17.7",
     "@types/node": "^22.5.0",

@@ -25,7 +25,8 @@ export const Evaluation = ({ evaluation, end }: EvaluationProps) => {
         <div className={styles.left}>
           <div className={styles.avatar}>
             <Image
-              src={`https://avatar.vercel.sh/${evaluation.evaluator?.username}`}
+              unoptimized
+              src={evaluation.evaluator?.avatar_url ?? ""}
               alt={"Profile Picture"}
               width={40}
               height={40}

@@ -28,12 +28,6 @@
         border-color: get-color("gray-6");
         border-radius: 999px;
       }
-
-      .seperator {
-        flex: 1 0 0;
-        width: 1px;
-        background-color: get-color("gray-6");
-      }
     }
 
     .right {
@@ -108,26 +102,5 @@
         }
       }
     }
-  }
-
-  [data-evaluation-seperator="true"] {
-    display: flex;
-    flex-shrink: 0;
-    flex-direction: column;
-    align-items: center;
-    align-self: stretch;
-    gap: 4px;
-    width: 40px;
-    height: 8px;
-
-    .seperator {
-      flex: 1 0 0;
-      width: 1px;
-      background-color: get-color("gray-6");
-    }
-  }
-
-  [data-evaluation-seperator="false"] {
-    display: none;
   }
 }

@@ -1,18 +1,16 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { User, UserEvaluation } from "@/lib/types/supabase";
 import * as Profile from "@/screens/profile";
 import { createClient } from "@/utils/supabase/client";
 
-export default function Page() {
-  const { username } = useParams();
+export default function Page({ params }: { params: any }) {
+  const supabase = createClient();
+  const username = decodeURIComponent(params.username).toLowerCase(); // Convert username to lowercase
   const [user, setUser] = useState<User | null>(null);
   const [evaluations, setEvaluations] = useState<UserEvaluation[]>([]);
-
-  const supabase = createClient();
 
   useEffect(() => {
     const getData = async () => {
@@ -20,7 +18,7 @@ export default function Page() {
         const { data: userData, error: userError } = await supabase
           .from("users")
           .select("*")
-          .eq("username", username)
+          .ilike("username", username) // Use ilike for case-insensitive matching
           .single();
 
         if (userError) throw userError;
