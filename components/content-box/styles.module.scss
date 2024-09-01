@@ -47,6 +47,10 @@
     &[data-layout="evaluations"] {
       flex-direction: column;
       gap: 16px;
+
+      > div {
+        width: 100%;
+      }
     }
 
     > * {

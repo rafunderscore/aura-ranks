@@ -1,106 +1,184 @@
 .evaluation {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
+  display: flex;
   align-items: flex-start;
+  width: 100%;
 
-  .content {
+  .left {
     display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
     align-items: center;
-    gap: 16px;
-    width: 1024px;
+    align-self: stretch;
+    gap: 8px;
+    width: 40px;
 
-    .left {
+    .avatar {
       display: flex;
-      flex-shrink: 0;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      align-self: stretch;
-      gap: 4px;
-      width: 40px;
+      overflow: hidden;
+      width: 32px;
+      height: 32px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: get-color("gray-6");
+      border-radius: 999px;
 
-      .avatar {
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .thread {
+      flex: 1 0 0;
+      width: 2px;
+      background: get-color("gray-4");
+      border-radius: 100px;
+    }
+
+    .responses {
+      position: relative;
+      align-self: stretch;
+      height: 32px;
+
+      .image,
+      .action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         overflow: hidden;
-        width: 40px;
-        height: 40px;
+        width: 16px;
+        height: 16px;
         border-width: 1px;
         border-style: solid;
         border-color: get-color("gray-6");
         border-radius: 999px;
+        box-shadow: 0 0 0 2px get-color("white-12");
+      }
+
+      .image:nth-child(1) {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .image:nth-child(2) {
+        position: absolute;
+        top: 8px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+      }
+
+      .image:nth-child(3) {
+        position: absolute;
+        top: 20px;
+        left: 16px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+      padding: 0 16px;
+
+      .sentence {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        :nth-child(1),
+        :nth-child(3) {
+          @include paragraph-semi-bold;
+        }
+
+        :nth-child(2) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 18px;
+          padding: 0 4px;
+          border-radius: 4px;
+
+          > p {
+            font-size: 12px !important;
+            line-height: 12px !important;
+          }
+        }
+
+        :nth-child(2)[data-evaluation-type="positive"] {
+          @include background-color("green-4");
+
+          > p {
+            @include color("green-10");
+            @include paragraph-semi-bold;
+          }
+        }
+
+        :nth-child(2)[data-evaluation-type="negative"] {
+          @include background-color("red-4");
+
+          > p {
+            @include color("red-10");
+            @include paragraph-semi-bold;
+          }
+        }
+
+        :nth-child(2),
+        :nth-child(3) {
+          @include color("black-6");
+        }
       }
     }
 
-    .right {
+    .actions,
+    .span {
+      @include paragraph-semi-bold;
+      @include color("black-6");
+    }
+
+    .actions {
       display: flex;
-      flex: 1 0 0;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+      height: 32px;
+      padding: 0 16px;
 
-      .heading {
+      > div {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        align-self: stretch;
-
-        .text {
-          display: flex;
-          align-items: center;
-          align-self: stretch;
-          gap: 8px;
-
-          .sentence {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-
-            :nth-child(1) {
-              @include paragraph-semi-bold;
-            }
-
-            :nth-child(2) {
-              @include color("black-6");
-            }
-
-            :nth-child(3) {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 18px;
-              padding: 0 8px;
-              border-radius: 4px;
-
-              > p {
-                font-size: 12px !important;
-                line-height: 12px !important;
-              }
-            }
-
-            :nth-child(3)[data-evaluation-type="positive"] {
-              @include background-color("green-4");
-
-              > p {
-                @include color("green-10");
-                @include paragraph-semi-bold;
-              }
-            }
-
-            :nth-child(3)[data-evaluation-type="negative"] {
-              @include background-color("red-4");
-
-              > p {
-                @include color("red-10");
-                @include paragraph-semi-bold;
-              }
-            }
-          }
-
-          :nth-child(2),
-          :nth-child(3) {
-            @include color("black-6");
-          }
-        }
+        gap: 8px;
       }
+    }
+
+    .responses {
+      @include paragraph-semi-bold;
+      @include color("black-6");
+
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 32px;
+      padding: 0 16px;
+      white-space: nowrap;
     }
   }
 }

@@ -18,7 +18,7 @@ export default function Page({ params }: { params: any }) {
         const { data: userData, error: userError } = await supabase
           .from("users")
           .select("*")
-          .ilike("username", username) // Use ilike for case-insensitive matching
+          .ilike("username", username)
           .single();
 
         if (userError) throw userError;
