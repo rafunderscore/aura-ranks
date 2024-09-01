@@ -5,7 +5,7 @@ export default {
   plugins: ["stylelint-order"],
   overrides: [
     {
-      files: ["*.scss", "**/*.scss"],
+      files: ["*.scss", "**/*.scss", "*.css", "**/*.css"],
       rules: {
         "no-empty-source": null,
         "import-notation": "string",

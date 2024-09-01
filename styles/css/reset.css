@@ -2,7 +2,6 @@
  * https://github.com/jtrost/Complete-CSS-Reset
 */
 
-/* Displays for HTML 5 */
 article,
 aside,
 audio,
@@ -38,7 +37,6 @@ time {
   display: inline;
 }
 
-/* Deprecated tags */
 acronym,
 applet,
 big,
@@ -56,7 +54,6 @@ xmp {
   display: none;
 }
 
-/* Reset styles for all structural tags */
 a,
 abbr,
 area,
@@ -160,9 +157,19 @@ video {
   text-decoration: none;
   vertical-align: baseline;
   z-index: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: none;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: none;
+  backface-visibility: hidden;
+  color: inherit;
+  text-decoration: none;
+
+  box-sizing: border-box;
+  backface-visibility: hidden;
 }
 
-/* Miscellaneous resets */
 body {
   line-height: 1;
 }
