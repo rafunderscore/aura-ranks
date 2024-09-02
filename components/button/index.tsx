@@ -29,7 +29,7 @@ export const Button = ({
     data-disabled={disabled}
     className={styles.button}
   >
-    <span>{props.children}</span>
+    {props.children}
   </MotionButton>
 );
 

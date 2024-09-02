@@ -1,7 +1,8 @@
 import { faker } from "@faker-js/faker";
+import { redA, greenA } from "@radix-ui/colors";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { intlFormatDistance } from "date-fns";
-import { Send, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Diameter, Send, ThumbsDown, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 
 import Button from "@/components/button";
@@ -84,8 +85,16 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
         <div className={styles.heading}>
           <div className={styles.sentence}>
             <p>{evaluation.evaluator?.display_name}</p>
-            <div data-evaluation-type={evaluation.sign}>
-              <p>AP {formatter.number.format(evaluation.aura_points_used)}</p>
+            <div
+              data-evaluation-type={evaluation.sign}
+              className={styles.essence}
+            >
+              <Diameter
+                color={
+                  evaluation.sign === "positive" ? greenA.greenA10 : redA.redA10
+                }
+              />
+              <p>{formatter.number.format(evaluation.aura_points_used)}</p>
             </div>
             <p>
               {evaluation.created_at

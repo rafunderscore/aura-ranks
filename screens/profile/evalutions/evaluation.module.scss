@@ -108,10 +108,11 @@
           @include paragraph-semi-bold;
         }
 
-        :nth-child(2) {
+        .essence {
           display: flex;
           justify-content: center;
           align-items: center;
+          gap: 2px;
           height: 18px;
           padding: 0 4px;
           border-radius: 4px;
@@ -120,12 +121,18 @@
             font-size: 12px !important;
             line-height: 12px !important;
           }
+
+          > svg {
+            width: 13px;
+            height: 13px;
+          }
         }
 
         :nth-child(2)[data-evaluation-type="positive"] {
           @include background-color("green-4");
 
-          > p {
+          > p,
+          svg {
             @include color("green-10");
             @include paragraph-semi-bold;
           }
@@ -134,7 +141,8 @@
         :nth-child(2)[data-evaluation-type="negative"] {
           @include background-color("red-4");
 
-          > p {
+          > p,
+          svg {
             @include color("red-10");
             @include paragraph-semi-bold;
           }

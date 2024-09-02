@@ -7,5 +7,15 @@
   "deno.unstable": true,
   "editor.formatOnSave": true,
   "exportall.config.folderListener": ["/screens/profile"],
-  "notebook.formatOnSave.enabled": true
+  "notebook.formatOnSave.enabled": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "connectString": "postgresql://postgres.hlcpwzvpryzuwrxetynm:Q2pQsSEtRc4qrapj@aws-0-us-east-1.pooler.supabase.com:6543/postgres",
+      "group": "Supabase",
+      "name": "Laura"
+    }
+  ]
 }

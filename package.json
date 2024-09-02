@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "node ./scripts/lint.js",
     "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > lib/types/database.types.ts",
-    "supabase:insert": "node ./scripts/insert.js"
+    "supabase:insert": "node ./supabase/scripts/insert.js"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.1",

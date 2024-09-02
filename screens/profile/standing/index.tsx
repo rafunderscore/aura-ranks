@@ -2,36 +2,33 @@ import { QuestionMarkIcon } from "@radix-ui/react-icons";
 
 import ContentBox from "@/components/content-box";
 import IconButton from "@/components/icon-button";
+import { User } from "@/lib/types/supabase";
 import { Stat } from "@/screens/profile/standing/stat";
 
-const MOCK_STATS = {
-  global: {
-    key: "global",
-    heading: "Global Standing",
-    standout: "1st",
-    subtext: "370,071,354",
-    value: 7.44,
-    sign: "positive" as const,
-  },
-  current: {
-    key: "current",
-    heading: "Current Standing",
-    standout: "Ethereal",
-    subtext: "370,071,354",
-    value: 7.44,
-    sign: "positive" as const,
-  },
-  recent: {
-    key: "recent",
-    heading: "Recent Standing",
-    standout: "Neutral",
-    subtext: "71,354",
-    value: 32.44,
-    sign: "negative" as const,
-  },
-};
+interface StandingProps extends React.HTMLAttributes<HTMLDivElement> {
+  user: User;
+}
 
-export const Standing = () => {
+export const Standing = ({ user }: StandingProps) => {
+  const stats = {
+    global: {
+      key: "global",
+      heading: "Current Standing",
+      standout: "1st",
+      subtext: user.aura_level,
+      value: 7.44,
+      sign: "positive" as const,
+    },
+    recent: {
+      key: "current",
+      heading: "Recent Standing",
+      standout: "Ethereal",
+      subtext: user.aura_level,
+      value: 7.44,
+      sign: "positive" as const,
+    },
+  };
+
   return (
     <ContentBox
       heading="Profile Standing"
@@ -40,8 +37,8 @@ export const Standing = () => {
           <QuestionMarkIcon />
         </IconButton>,
       ]}
-      items={Object.values(MOCK_STATS).map(({ key, ...stat }) => (
-        <Stat key={key} {...stat} />
+      items={Object.values(stats).map(({ key, ...stat }) => (
+        <Stat key={key} {...stat} subtext={String(stat.subtext)} />
       ))}
     />
   );
