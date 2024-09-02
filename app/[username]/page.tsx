@@ -66,6 +66,7 @@ export default function Page({ params }: { params: any }) {
           }}
         >
           <Profile.Header user={user} />
+          <Profile.Standing />
           <Profile.Evaluations evaluations={evaluations} />
         </div>
       ) : (
