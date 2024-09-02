@@ -8,7 +8,7 @@ import { createClient } from "@/utils/supabase/client";
 
 export default function Page({ params }: { params: any }) {
   const supabase = createClient();
-  const username = decodeURIComponent(params.username).toLowerCase(); // Convert username to lowercase
+  const username = decodeURIComponent(params.username).toLowerCase();
   const [user, setUser] = useState<User | null>(null);
   const [evaluations, setEvaluations] = useState<UserEvaluation[]>([]);
 
