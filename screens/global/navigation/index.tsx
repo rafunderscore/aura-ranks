@@ -27,7 +27,7 @@ const NavigationBar = () => {
         </div>
         <div className={styles.right}>
           <Button fit variant="secondary">
-            <Diameter height={14} width={14} /> <p>{MOCK_DATA.ap}</p>
+            <Diameter /> <p>{MOCK_DATA.ap}</p>
           </Button>
           <IconButton background="orange-10">9</IconButton>
           <IconButton corners="circle">RS</IconButton>
