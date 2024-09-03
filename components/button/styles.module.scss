@@ -20,8 +20,8 @@
 
   &[data-fit="true"] {
     width: fit-content;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 8px;
+    padding-left: 8px;
   }
 
   &[data-fit="false"] {
@@ -67,5 +67,10 @@
     &:hover {
       cursor: help;
     }
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
   }
 }

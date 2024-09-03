@@ -21,7 +21,7 @@ export type UserEvaluation =
 export type Follow = Database["public"]["Tables"]["follows"]["Row"];
 export type User = Database["public"]["Tables"]["users"]["Row"];
 
-export type AuraTier = Database["public"]["Enums"]["aura_tier"];
+export type AuraTier = Database["public"]["Enums"]["level"];
 export type Sign = Database["public"]["Enums"]["sign"];
 
 export type PublicSchema = Database["public"];

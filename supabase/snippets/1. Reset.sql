@@ -69,3 +69,7 @@ begin
 end
 $$;
 
+drop type if exists level;
+
+drop type if exists sign;
+

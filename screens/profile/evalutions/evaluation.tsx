@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { redA, greenA } from "@radix-ui/colors";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { intlFormatDistance } from "date-fns";
-import { Diameter, Send, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Radius, Send, ThumbsDown, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 
 import Button from "@/components/button";
@@ -35,8 +35,8 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
 
   const formatter = {
     number: new Intl.NumberFormat("en-US", {
-      notation: "compact",
-      compactDisplay: "short",
+      notation: "standard",
+      compactDisplay: "long",
       maximumSignificantDigits: 3,
     }),
     date: new Intl.DateTimeFormat("en-US", {
@@ -85,18 +85,23 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
         <div className={styles.heading}>
           <div className={styles.sentence}>
             <p>{evaluation.evaluator?.display_name}</p>
+            {evaluation.sign === "positive" ? (
+              <span>bestowed</span>
+            ) : (
+              <span>siphoned</span>
+            )}
             <div
               data-evaluation-type={evaluation.sign}
               className={styles.essence}
             >
-              <Diameter
+              <Radius
                 color={
                   evaluation.sign === "positive" ? greenA.greenA10 : redA.redA10
                 }
               />
-              <p>{formatter.number.format(evaluation.aura_points_used)}</p>
+              <p>{formatter.number.format(evaluation.essence_used)}</p>
             </div>
-            <p>
+            <p className={styles.date}>
               {evaluation.created_at
                 ? RelativeTime(new Date(evaluation.created_at))
                 : ""}

@@ -10,3 +10,7 @@ create trigger on_auth_user_created
 	after insert on auth.users for each row
 	execute function PUBLIC.handle_new_user();
 
+create trigger audit_users
+	after insert or update or delete on PUBLIC.users for each row
+	execute function log_user_changes();
+

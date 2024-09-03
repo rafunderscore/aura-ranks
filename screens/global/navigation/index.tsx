@@ -1,4 +1,4 @@
-import { Diameter } from "lucide-react";
+import { Radius } from "lucide-react";
 
 import Button from "@/components/button";
 import IconButton from "@/components/icon-button";
@@ -27,7 +27,7 @@ const NavigationBar = () => {
         </div>
         <div className={styles.right}>
           <Button fit variant="secondary">
-            <Diameter /> <p>{MOCK_DATA.ap}</p>
+            <Radius /> <p>{MOCK_DATA.ap}</p>
           </Button>
           <IconButton background="orange-10">9</IconButton>
           <IconButton corners="circle">RS</IconButton>

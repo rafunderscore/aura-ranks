@@ -1,4 +1,4 @@
-id,user_id,date,aura_points,positive_evaluations,negative_evaluations,cumulative_aura_points,created_at
+id,user_id,date,essence,positive_evaluations,negative_evaluations,cumulative_essence,created_at
 d4824b38-0e34-4e7f-b9a0-13a2a2049b0d,6a1dde8e-688e-4e0f-89a3-bb67cf0b1d48,2023-01-01,10,1,0,45,2023-01-01 00:00:00
 e99f6a2d-9a5a-4c98-b09b-653b7f34e95f,6a1dde8e-688e-4e0f-89a3-bb67cf0b1d48,2023-01-02,10,1,0,55,2023-01-02 00:00:00
 30f86c3a-d85c-4d95-b1fd-37793895a8da,6a1dde8e-688e-4e0f-89a3-bb67cf0b1d48,2023-01-03,10,1,0,65,2023-01-03 00:00:00

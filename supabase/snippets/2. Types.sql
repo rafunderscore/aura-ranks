@@ -1,4 +1,4 @@
-create type PUBLIC.aura_tier as enum(
+create type PUBLIC.level as enum(
 	'shadowed',
 	'fading',
 	'common',

@@ -31,9 +31,9 @@ const { faker } = require("@faker-js/faker");
   // Initial Aura Points and Levels for Users
   const userStats = userIds.reduce((acc, id) => {
     acc[id] = {
-      aura_points: Math.floor(Math.random() * 10_000_000), // Large initial aura points
-      aura_level: 0,
-      aura_tier: "common",
+      essence: Math.floor(Math.random() * 10_000_000), // Large initial aura points
+      aura: 0,
+      level: "common",
     };
     return acc;
   }, {});
@@ -60,9 +60,9 @@ const { faker } = require("@faker-js/faker");
       const username = `@${faker.internet.displayName({ firstName: name.first, lastName: name.last })}`;
       const avatarUrl = generateAvatarUrl(username);
 
-      const aura_points = userStats[userIds[i]].aura_points;
-      const aura_level = calculateAuraLevel(aura_points);
-      const aura_tier = calculateAuraTier(aura_level);
+      const essence = userStats[userIds[i]].essence;
+      const aura = calculateAuraLevel(essence);
+      const level = calculateAuraTier(aura);
 
       const user = `(
         '${userIds[i]}',
@@ -72,9 +72,9 @@ const { faker } = require("@faker-js/faker");
         '${avatarUrl}',
         '${escapeSqlString(faker.person.bio())}',
         '${escapeSqlString(faker.internet.url())}',
-        '${aura_tier}',
-        ${aura_level},
-        ${aura_points},
+        '${level}',
+        ${aura},
+        ${essence},
         ${Math.floor(Math.random() * 500)},
         ${Math.floor(Math.random() * 500)},
         '${faker.date.past().toISOString()}',
@@ -86,7 +86,7 @@ const { faker } = require("@faker-js/faker");
 
     const combinedUsersSql = `
       INSERT INTO PUBLIC.users (
-          id, username, display_name, world_location, avatar_url, bio, website, aura_tier, aura_level, aura_points, followers_count, following_count, created_at, updated_at, privacy_settings
+          id, username, display_name, world_location, avatar_url, bio, website, level, aura, essence, followers_count, following_count, created_at, updated_at, privacy_settings
       ) VALUES
       ${users.join(",\n")};
     `;
@@ -136,24 +136,22 @@ const { faker } = require("@faker-js/faker");
         parentId = parentEvaluation.id;
       }
 
-      const aura_points_change = Math.floor(Math.random() * 500_000) + 1;
-      const aura_points_used =
-        signs[i % 2] === "positive" ? aura_points_change : -aura_points_change;
+      const essence_change = Math.floor(Math.random() * 500_000) + 1;
+      const essence_used =
+        signs[i % 2] === "positive" ? essence_change : -essence_change;
 
       // Update the evaluatee's aura points and level
       const evaluateeStats = userStats[evaluatee];
-      evaluateeStats.aura_points += aura_points_used;
-      evaluateeStats.aura_level = calculateAuraLevel(
-        evaluateeStats.aura_points,
-      );
-      evaluateeStats.aura_tier = calculateAuraTier(evaluateeStats.aura_level);
+      evaluateeStats.essence += essence_used;
+      evaluateeStats.aura = calculateAuraLevel(evaluateeStats.essence);
+      evaluateeStats.level = calculateAuraTier(evaluateeStats.aura);
 
       const evaluationId = uuidv4();
       const evaluation = {
         id: evaluationId,
         evaluator_id: evaluator,
         evaluatee_id: evaluatee,
-        aura_points_used: Math.abs(aura_points_used),
+        essence_used: Math.abs(essence_used),
         sign: signs[i % 2],
         comment: escapeSqlString(faker.lorem.paragraph({ min: 1, max: 2 })),
         created_at: faker.date.recent({ days: 30 }).toISOString(),
@@ -166,7 +164,7 @@ const { faker } = require("@faker-js/faker");
         '${evaluationId}',
         '${evaluator}',
         '${evaluatee}',
-        ${evaluation.aura_points_used},
+        ${evaluation.essence_used},
         '${evaluation.sign}',
         '${evaluation.comment}',
         '${evaluation.created_at}',
@@ -177,7 +175,7 @@ const { faker } = require("@faker-js/faker");
 
     const combinedEvaluationsSql = `
       INSERT INTO PUBLIC.evaluations (
-          id, evaluator_id, evaluatee_id, aura_points_used, sign, comment, created_at, parent_id
+          id, evaluator_id, evaluatee_id, essence_used, sign, comment, created_at, parent_id
       ) VALUES
       ${evaluationStatements.join(",\n")};
     `;

@@ -103,9 +103,14 @@
         align-items: center;
         gap: 4px;
 
-        :nth-child(1),
-        :nth-child(3) {
+        :nth-child(1) {
           @include paragraph-semi-bold;
+        }
+
+        :nth-child(2),
+        .date {
+          @include paragraph-regular;
+          @include color("black-6");
         }
 
         .essence {
@@ -118,6 +123,8 @@
           border-radius: 4px;
 
           > p {
+            @include paragraph-semi-bold;
+
             font-size: 12px !important;
             line-height: 12px !important;
           }
@@ -128,36 +135,28 @@
           }
         }
 
-        :nth-child(2)[data-evaluation-type="positive"] {
-          @include background-color("green-4");
-
-          > p,
-          svg {
-            @include color("green-10");
-            @include paragraph-semi-bold;
-          }
-        }
-
-        :nth-child(2)[data-evaluation-type="negative"] {
+        .essence[data-evaluation-type="negative"] {
           @include background-color("red-4");
 
           > p,
           svg {
             @include color("red-10");
-            @include paragraph-semi-bold;
           }
         }
 
-        :nth-child(2),
-        :nth-child(3) {
-          @include color("black-6");
+        .essence[data-evaluation-type="positive"] {
+          @include background-color("green-4");
+
+          > p,
+          svg {
+            @include color("green-10");
+          }
         }
       }
     }
 
     .actions,
     .span {
-      @include paragraph-semi-bold;
       @include color("black-6");
     }
 

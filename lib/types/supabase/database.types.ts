@@ -11,9 +11,9 @@ export type Database = {
     Tables: {
       analytics: {
         Row: {
-          aura_points: number;
+          essence: number;
           created_at: string | null;
-          cumulative_aura_points: number;
+          cumulative_essence: number;
           date: string;
           id: string;
           negative_evaluations: number;
@@ -22,9 +22,9 @@ export type Database = {
           user_id: string;
         };
         Insert: {
-          aura_points?: number;
+          essence?: number;
           created_at?: string | null;
-          cumulative_aura_points?: number;
+          cumulative_essence?: number;
           date: string;
           id?: string;
           negative_evaluations?: number;
@@ -33,9 +33,9 @@ export type Database = {
           user_id: string;
         };
         Update: {
-          aura_points?: number;
+          essence?: number;
           created_at?: string | null;
-          cumulative_aura_points?: number;
+          cumulative_essence?: number;
           date?: string;
           id?: string;
           negative_evaluations?: number;
@@ -55,7 +55,7 @@ export type Database = {
       };
       evaluations: {
         Row: {
-          aura_points_used: number;
+          essence_used: number;
           comment: string | null;
           created_at: string | null;
           evaluatee_id: string;
@@ -64,7 +64,7 @@ export type Database = {
           sign: Database["public"]["Enums"]["sign"];
         };
         Insert: {
-          aura_points_used: number;
+          essence_used: number;
           comment?: string | null;
           created_at?: string | null;
           evaluatee_id: string;
@@ -73,7 +73,7 @@ export type Database = {
           sign: Database["public"]["Enums"]["sign"];
         };
         Update: {
-          aura_points_used?: number;
+          essence_used?: number;
           comment?: string | null;
           created_at?: string | null;
           evaluatee_id?: string;
@@ -133,9 +133,9 @@ export type Database = {
       };
       users: {
         Row: {
-          aura_level: number | null;
-          aura_points: number | null;
-          aura_tier: Database["public"]["Enums"]["aura_tier"] | null;
+          aura: number | null;
+          essence: number | null;
+          level: Database["public"]["Enums"]["level"] | null;
           avatar_url: string | null;
           bio: string | null;
           created_at: string | null;
@@ -150,9 +150,9 @@ export type Database = {
           world_location: string | null;
         };
         Insert: {
-          aura_level?: number | null;
-          aura_points?: number | null;
-          aura_tier?: Database["public"]["Enums"]["aura_tier"] | null;
+          aura?: number | null;
+          essence?: number | null;
+          level?: Database["public"]["Enums"]["level"] | null;
           avatar_url?: string | null;
           bio?: string | null;
           created_at?: string | null;
@@ -167,9 +167,9 @@ export type Database = {
           world_location?: string | null;
         };
         Update: {
-          aura_level?: number | null;
-          aura_points?: number | null;
-          aura_tier?: Database["public"]["Enums"]["aura_tier"] | null;
+          aura?: number | null;
+          essence?: number | null;
+          level?: Database["public"]["Enums"]["level"] | null;
           avatar_url?: string | null;
           bio?: string | null;
           created_at?: string | null;
@@ -193,7 +193,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
-      aura_tier: "shadowed" | "fading" | "common" | "radiant" | "ethereal";
+      level: "shadowed" | "fading" | "common" | "radiant" | "ethereal";
       sign: "positive" | "negative";
     };
     CompositeTypes: {

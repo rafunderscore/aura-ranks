@@ -1,4 +1,4 @@
-id,username,display_name,world_location,avatar_url,bio,website,aura_tier,aura_level,aura_points,followers_count,following_count,created_at,updated_at,privacy_settings
+id,username,display_name,world_location,avatar_url,bio,website,level,aura,essence,followers_count,following_count,created_at,updated_at,privacy_settings
 6a1dde8e-688e-4e0f-89a3-bb67cf0b1d48,jdoe,John Doe,"New York, USA",https://example.com/avatar_jdoe.png,Tech enthusiast and avid reader.,https://johndoe.com,common,3,45,0,0,2023-01-01 00:00:00,2023-01-01 00:00:00,"{}"
 a7f1bb32-5bfa-4f87-b995-8b43fa545a35,asmith,Alice Smith,"London, UK",https://example.com/avatar_asmith.png,Photographer and traveler.,https://alicesmith.com,radiant,5,65,0,0,2023-01-01 00:00:00,2023-01-01 00:00:00,"{}"
 d2fbe524-3f5a-4f30-91e4-2f7a8e93c4d2,bkumar,Bharat Kumar,"Mumbai, India",https://example.com/avatar_bkumar.png,Digital marketer and blogger.,https://bharatkumar.in,ethereal,7,85,0,0,2023-01-01 00:00:00,2023-01-01 00:00:00,"{}"

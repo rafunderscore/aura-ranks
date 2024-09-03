@@ -56,3 +56,14 @@ $$
 language plpgsql
 security definer;
 
+create or replace function log_user_changes()
+	returns trigger
+	as $$
+begin
+	insert into audit_log(user_id, action, table_name, changed_data)
+		values(auth.uid(), TG_OP, TG_TABLE_NAME, row_to_json(NEW));
+	return NEW;
+end;
+$$
+language plpgsql;
+

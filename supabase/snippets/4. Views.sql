@@ -3,24 +3,24 @@ select
 	id,
 	username,
 	display_name,
-	aura_level,
-	rank() over (order by aura_level desc, aura_points desc) as rank
+	aura,
+	rank() over (order by aura desc, essence desc) as rank
 from
 	PUBLIC.users
 where
-	aura_level > 0;
+	aura > 0;
 
 create materialized view leaderboard_mview as
 select
 	id,
 	username,
 	display_name,
-	aura_level,
-	rank() over (order by aura_level desc, aura_points desc) as rank
+	aura,
+	rank() over (order by aura desc, essence desc) as rank
 from
 	PUBLIC.users
 where
-	aura_level > 0 with no DATA;
+	aura > 0 with no DATA;
 
 refresh materialized view leaderboard_mview;
 
@@ -30,7 +30,7 @@ WITH recursive thread as (
 		id,
 		evaluator_id,
 		evaluatee_id,
-		aura_points_used,
+		essence_used,
 		sign,
 		comment,
 		created_at,
@@ -45,7 +45,7 @@ WITH recursive thread as (
 		e.id,
 		e.evaluator_id,
 		e.evaluatee_id,
-		e.aura_points_used,
+		e.essence_used,
 		e.sign,
 		e.comment,
 		e.created_at,
@@ -74,7 +74,7 @@ select
 	evaluatee.username as evaluatee_username,
 	evaluatee.display_name as evaluatee_display_name,
 	evaluatee.avatar_url as evaluatee_avatar_url,
-	e.aura_points_used,
+	e.essence_used,
 	e.sign,
 	e.comment,
 	e.created_at as evaluation_created_at
