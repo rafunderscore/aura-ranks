@@ -35,6 +35,22 @@
 
       h1 {
         @include paragraph-semi-bold;
+
+        display: flex;
+        gap: 4px;
+
+        > span {
+          display: flex;
+          align-items: center;
+          padding: 0 4px;
+          border-radius: 4px;
+          text-transform: capitalize;
+
+          &[data-level="common"] {
+            @include background-color("sky-4");
+            @include color("sky-10");
+          }
+        }
       }
 
       h2 {

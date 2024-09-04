@@ -1,285 +1,209 @@
-const fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
-const { faker } = require("@faker-js/faker");
+import fs from "fs";
+import { v4 as uuidv4 } from "uuid";
+import { faker } from "@faker-js/faker";
+import chalk from "chalk";
+import ora from "ora";
+import path from "path";
 
-(async () => {
-  const chalk = (await import("chalk")).default;
-  const ora = (await import("ora")).default;
+// File path to output SQL script
+const __dirname = path.dirname(decodeURI(new URL(import.meta.url).pathname));
+const outputFilePath = path.join(__dirname, "../snippets/library/insert.sql");
 
-  function escapeSqlString(str) {
-    return str.replace(/'/g, "''");
-  }
+// Helper function to escape SQL strings
+function escapeSqlString(str) {
+  return str.replace(/'/g, "''");
+}
 
-  function generateDiceBearAvatarUrl(username) {
-    const style = "thumbs"; // Simplified for consistency
-    return `https://api.dicebear.com/9.x/${style}/svg?seed=${encodeURIComponent(username)}`;
-  }
+// Generate an anime avatar URL
+function generateAnimeAvatarUrl(username) {
+  return `https://anime.kirwako.com/api/avatar?name=${encodeURIComponent(username)}`;
+}
 
-  function generateAnimeAvatarUrl(username) {
-    return `https://anime.kirwako.com/api/avatar?name=${encodeURIComponent(username)}`;
-  }
+// Generate users
+async function generateUsers(n) {
+  const users = [];
 
-  function generateAvatarUrl(username) {
-    const randomChoice = Math.random();
-    return randomChoice < 0.5
-      ? generateDiceBearAvatarUrl(username)
-      : generateAnimeAvatarUrl(username);
-  }
-
-  const userIds = Array.from({ length: 100 }, () => uuidv4());
-
-  // Initial Aura Points and Levels for Users
-  const userStats = userIds.reduce((acc, id) => {
-    acc[id] = {
-      essence: Math.floor(Math.random() * 10_000_000), // Large initial aura points
-      aura: 0,
-      level: "common",
+  for (let i = 0; i < n; i++) {
+    const id = uuidv4();
+    const name = {
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
     };
-    return acc;
-  }, {});
+    const username = faker.internet.userName({
+      firstName: name.firstName,
+      lastName: name.lastName,
+    });
+    const displayName = `${name.firstName} ${name.lastName}`;
+    const avatarUrl = generateAnimeAvatarUrl(username);
+    const bio = faker.lorem.sentence();
+    const website = faker.internet.url();
+    const worldLocation = `${faker.location.city()}, ${faker.location.country()}`;
+    const essence = faker.number.int({ min: 50, max: 10000 });
+    const aura = faker.number.int({ min: 0, max: 50000 });
+    const createdAt = faker.date.recent().toISOString();
+    const updatedAt = faker.date.recent().toISOString();
 
-  function calculateAuraLevel(auraPoints) {
-    return Math.floor(auraPoints / 1000); // Adjust scaling to achieve higher aura levels
+    users.push({
+      id,
+      username,
+      displayName,
+      avatarUrl,
+      bio,
+      website,
+      worldLocation,
+      essence,
+      aura,
+      createdAt,
+      updatedAt,
+    });
   }
 
-  function calculateAuraTier(auraLevel) {
-    if (auraLevel > 1_000_000) return "ethereal";
-    if (auraLevel > 500_000) return "radiant";
-    if (auraLevel > 100_000) return "fading";
-    if (auraLevel >= 0) return "common";
-    return "shadowed";
-  }
-
-  async function generateUsers(userIds) {
-    const users = [];
-    for (let i = 0; i < userIds.length; i++) {
-      const name = {
-        first: faker.person.firstName(),
-        last: faker.person.lastName(),
-      };
-      const username = `@${faker.internet.displayName({ firstName: name.first, lastName: name.last })}`;
-      const avatarUrl = generateAvatarUrl(username);
-
-      const essence = userStats[userIds[i]].essence;
-      const aura = calculateAuraLevel(essence);
-      const level = calculateAuraTier(aura);
-
-      const user = `(
-        '${userIds[i]}',
-        '${escapeSqlString(username)}',
-        '${escapeSqlString(name.first + " " + name.last)}',
-        '${escapeSqlString(faker.location.city() + ", " + faker.location.country())}',
-        '${avatarUrl}',
-        '${escapeSqlString(faker.person.bio())}',
-        '${escapeSqlString(faker.internet.url())}',
-        '${level}',
-        ${aura},
-        ${essence},
-        ${Math.floor(Math.random() * 500)},
-        ${Math.floor(Math.random() * 500)},
-        '${faker.date.past().toISOString()}',
-        '${faker.date.recent().toISOString()}',
-        '{}'::jsonb
+  const userInserts = users
+    .map((user) => {
+      return `(
+        '${user.id}',
+        '${escapeSqlString(user.username)}',
+        '${escapeSqlString(user.displayName)}',
+        '${escapeSqlString(user.worldLocation)}',
+        '${escapeSqlString(user.avatarUrl)}',
+        '${escapeSqlString(user.bio)}',
+        '${escapeSqlString(user.website)}',
+        ${user.aura},  -- aura will be used to calculate the aura_rank via the DB trigger
+        ${user.essence},
+        '${user.createdAt}',
+        '${user.updatedAt}'
       )`;
-      users.push(user);
-    }
+    })
+    .join(",\n");
 
-    const combinedUsersSql = `
-      INSERT INTO PUBLIC.users (
-          id, username, display_name, world_location, avatar_url, bio, website, level, aura, essence, followers_count, following_count, created_at, updated_at, privacy_settings
+  return {
+    sql: `
+      INSERT INTO users (
+        id, username, display_name, world_location, avatar_url, bio, website, aura, essence, created_at, updated_at
       ) VALUES
-      ${users.join(",\n")};
-    `;
+      ${userInserts};
+    `,
+    userIds: users.map((user) => user.id),
+  };
+}
 
-    return combinedUsersSql;
-  }
+// Generate follows between users
+async function generateFollows(userIds, n) {
+  const follows = new Set();
+  const followStatements = [];
 
-  function generateFollows(userIds, n) {
-    const follows = new Set();
-    const followStatements = [];
-
-    while (follows.size < n) {
-      const [follower, followed] = faker.helpers.shuffle(userIds).slice(0, 2);
-      if (!follows.has(`${follower}-${followed}`) && follower !== followed) {
-        follows.add(`${follower}-${followed}`);
-        const follow = `(
-          '${follower}',
-          '${followed}',
-          '${faker.date.recent({ days: 30 }).toISOString()}'
-        )`;
-        followStatements.push(follow);
-      }
-    }
-
-    const combinedFollowsSql = `
-      INSERT INTO PUBLIC.follows (
-          follower_id, followed_id, followed_at
-      ) VALUES
-      ${followStatements.join(",\n")};
-    `;
-
-    return combinedFollowsSql;
-  }
-
-  function generateEvaluations(userIds, n) {
-    const signs = ["positive", "negative"];
-    const evaluations = [];
-    const evaluationStatements = [];
-
-    for (let i = 0; i < n; i++) {
-      const [evaluator, evaluatee] = faker.helpers.shuffle(userIds).slice(0, 2);
-      const isReply = Math.random() < 0.3; // 30% chance to be a reply
-      let parentId = null;
-
-      if (isReply && evaluations.length > 0) {
-        const parentEvaluation = faker.helpers.arrayElement(evaluations);
-        parentId = parentEvaluation.id;
-      }
-
-      const essence_change = Math.floor(Math.random() * 500_000) + 1;
-      const essence_used =
-        signs[i % 2] === "positive" ? essence_change : -essence_change;
-
-      // Update the evaluatee's aura points and level
-      const evaluateeStats = userStats[evaluatee];
-      evaluateeStats.essence += essence_used;
-      evaluateeStats.aura = calculateAuraLevel(evaluateeStats.essence);
-      evaluateeStats.level = calculateAuraTier(evaluateeStats.aura);
-
-      const evaluationId = uuidv4();
-      const evaluation = {
-        id: evaluationId,
-        evaluator_id: evaluator,
-        evaluatee_id: evaluatee,
-        essence_used: Math.abs(essence_used),
-        sign: signs[i % 2],
-        comment: escapeSqlString(faker.lorem.paragraph({ min: 1, max: 2 })),
-        created_at: faker.date.recent({ days: 30 }).toISOString(),
-        parent_id: parentId,
-      };
-
-      evaluations.push(evaluation);
-
-      const evaluationSql = `(
-        '${evaluationId}',
-        '${evaluator}',
-        '${evaluatee}',
-        ${evaluation.essence_used},
-        '${evaluation.sign}',
-        '${evaluation.comment}',
-        '${evaluation.created_at}',
-        ${evaluation.parent_id ? `'${evaluation.parent_id}'` : "NULL"}
-      )`;
-      evaluationStatements.push(evaluationSql);
-    }
-
-    const combinedEvaluationsSql = `
-      INSERT INTO PUBLIC.evaluations (
-          id, evaluator_id, evaluatee_id, essence_used, sign, comment, created_at, parent_id
-      ) VALUES
-      ${evaluationStatements.join(",\n")};
-    `;
-
-    return combinedEvaluationsSql;
-  }
-
-  function generateAuditLogs(userIds, n) {
-    const actions = ["INSERT", "UPDATE", "DELETE"];
-    const tables = ["users", "follows", "evaluations"];
-    const auditLogStatements = [];
-
-    for (let i = 0; i < n; i++) {
-      const userId = faker.helpers.arrayElement(userIds);
-      const action = faker.helpers.arrayElement(actions);
-      const tableName = faker.helpers.arrayElement(tables);
-      const changedData = escapeSqlString(
-        JSON.stringify({
-          key: "value", // You can customize this to represent realistic changes
-        }),
-      );
-
-      const auditLogSql = `(
-        '${uuidv4()}',
-        '${userId}',
-        '${action}',
-        '${tableName}',
-        '${changedData}'::jsonb,
-        '${faker.date.recent({ days: 30 }).toISOString()}'
-      )`;
-      auditLogStatements.push(auditLogSql);
-    }
-
-    const combinedAuditLogsSql = `
-      INSERT INTO PUBLIC.audit_log (
-          id, user_id, action, table_name, changed_data, action_time
-      ) VALUES
-      ${auditLogStatements.join(",\n")};
-    `;
-
-    return combinedAuditLogsSql;
-  }
-
-  async function run(taskName, taskFunction) {
-    const spinner = ora({
-      text: chalk.blue(`Starting ${taskName}...`),
-      color: "blue",
-      indent: 2,
-    }).start();
-
-    try {
-      const result = await taskFunction();
-      spinner.succeed(chalk.green(`${taskName} Created Successfully!`));
-      return result;
-    } catch (error) {
-      spinner.fail(chalk.red(`${taskName} failed.`));
-      console.error(chalk.red(error));
-      throw error;
+  while (follows.size < n) {
+    const [followerId, followedId] = faker.helpers.shuffle(userIds).slice(0, 2);
+    if (
+      followerId !== followedId &&
+      !follows.has(`${followerId}-${followedId}`)
+    ) {
+      follows.add(`${followerId}-${followedId}`);
+      followStatements.push(`(
+        '${followerId}',
+        '${followedId}',
+        '${faker.date.recent().toISOString()}'
+      )`);
     }
   }
 
-  async function generateData() {
-    console.log(
-      chalk("  ") + chalk.red.dim.bold("☘ Laura Data Generation 0.0.1\n"),
-    );
+  return `
+    INSERT INTO follows (follower_id, followed_id, followed_at) VALUES
+    ${followStatements.join(",\n")};
+  `;
+}
 
-    try {
-      const usersSql = await run("Users", () => generateUsers(userIds));
+// Generate evaluations and aura history
+async function generateEvaluationsAndAuraHistory(userIds, n) {
+  const evaluations = [];
+  const auraHistory = [];
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const followsSql = await run("Followers", () =>
-        generateFollows(userIds, 500),
-      );
+  for (let i = 0; i < n; i++) {
+    const [evaluatorId, evaluateeId] = faker.helpers
+      .shuffle(userIds)
+      .slice(0, 2);
+    const essenceUsed = faker.number.int({ min: 10, max: 1000 });
+    const auraChange = faker.number.int({ min: -100, max: 500 });
+    const createdAt = faker.date.recent().toISOString();
+    const comment = faker.lorem.sentences(2); // Generate a comment for the evaluation
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const evaluationsSql = await run("Evaluations", () =>
-        generateEvaluations(userIds, 300),
-      );
+    evaluations.push(`(
+      '${uuidv4()}',
+      '${evaluatorId}',
+      '${evaluateeId}',
+      ${essenceUsed},
+      '${escapeSqlString(comment)}',
+      '${createdAt}'
+    )`);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const auditLogsSql = await run("Audit Logs", () =>
-        generateAuditLogs(userIds, 100),
-      );
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      await run("SQL Snippet", () => {
-        const combinedSql = [
-          usersSql,
-          followsSql,
-          evaluationsSql,
-          auditLogsSql,
-        ].join("\n\n");
-        fs.writeFileSync("./supabase/snippets/10. Data.sql", combinedSql);
-        return Promise.resolve();
-      });
-    } catch (error) {
-      console.error(chalk.red("Data generation process encountered an error."));
-    }
-
-    console.log(
-      chalk("\n  ") + chalk.red.dim.bold("☘ Data Generation Complete\n"),
-    );
+    auraHistory.push(`(
+      '${uuidv4()}',
+      '${evaluateeId}',
+      ${auraChange},
+      '${createdAt}'
+    )`);
   }
 
-  await generateData();
-})();
+  const evaluationsSql = `
+    INSERT INTO evaluations (id, evaluator_id, evaluatee_id, essence_used, comment, created_at) VALUES
+    ${evaluations.join(",\n")};
+  `;
+
+  const auraHistorySql = `
+    INSERT INTO aura_history (id, user_id, aura_change, created_at) VALUES
+    ${auraHistory.join(",\n")};
+  `;
+
+  return [evaluationsSql, auraHistorySql];
+}
+
+// Main function to generate all data
+async function generateData() {
+  const spinner = ora("Generating users...").start();
+
+  try {
+    const numberOfUsers = 100;
+    const numberOfFollows = 200;
+    const numberOfEvaluations = 100;
+
+    // Generate users
+    const { sql: usersSql, userIds } = await generateUsers(numberOfUsers);
+
+    spinner.succeed("Users generated.");
+
+    // Generate follows
+    spinner.start("Generating follows...");
+    const followsSql = await generateFollows(userIds, numberOfFollows);
+    spinner.succeed("Follows generated.");
+
+    // Generate evaluations and aura history
+    spinner.start("Generating evaluations and aura history...");
+    const [evaluationsSql, auraHistorySql] =
+      await generateEvaluationsAndAuraHistory(userIds, numberOfEvaluations);
+    spinner.succeed("Evaluations and aura history generated.");
+
+    // Combine all SQL into a single script
+    const combinedSql = [
+      usersSql,
+      followsSql,
+      evaluationsSql,
+      auraHistorySql,
+    ].join("\n\n");
+
+    // Ensure the output directory exists
+    const libraryDir = path.dirname(outputFilePath);
+    if (!fs.existsSync(libraryDir)) {
+      fs.mkdirSync(libraryDir);
+    }
+
+    // Write to the SQL file
+    fs.writeFileSync(outputFilePath, combinedSql);
+    console.log(chalk.green(`✅ SQL script written to ${outputFilePath}`));
+  } catch (error) {
+    spinner.fail("Data generation failed.");
+    console.error(chalk.red(error));
+  }
+}
+
+// Run the data generation
+generateData();

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 import { User } from "@/lib/types/supabase";
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/supabase/lib/client";
 
 export default function Page() {
   const supabase = createClient();

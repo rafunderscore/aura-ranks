@@ -3,7 +3,6 @@
 import {
   CalendarIcon,
   DotsHorizontalIcon,
-  DrawingPinIcon,
   Link1Icon,
 } from "@radix-ui/react-icons";
 import Image from "next/image";
@@ -43,7 +42,10 @@ export const Header = ({ user }: HeaderProps) => {
       </div>
       <div className={styles.details}>
         <div className={styles.heading}>
-          <h1>{user.display_name}</h1>
+          <h1>
+            {user.display_name}
+            <span data-level={user.level}>{user.level}</span>
+          </h1>
           <h2>{user.username}</h2>
         </div>
         <p className={styles.bio}> {user.bio}</p>
@@ -62,7 +64,7 @@ export const Header = ({ user }: HeaderProps) => {
               )
             }
           />
-          <Label leading={<DrawingPinIcon />} trailing={user.world_location} />
+
           <Label
             leading={<Link1Icon />}
             trailing={

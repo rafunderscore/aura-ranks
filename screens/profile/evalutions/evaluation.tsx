@@ -2,10 +2,11 @@ import { faker } from "@faker-js/faker";
 import { redA, greenA } from "@radix-ui/colors";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { intlFormatDistance } from "date-fns";
-import { Radius, Send, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Send, ThumbsDown, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 
 import Button from "@/components/button";
+import { Essence } from "@/components/icons";
 import Island from "@/components/island";
 import { UserEvaluation } from "@/lib/types/supabase";
 
@@ -36,8 +37,6 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
   const formatter = {
     number: new Intl.NumberFormat("en-US", {
       notation: "standard",
-      compactDisplay: "long",
-      maximumSignificantDigits: 3,
     }),
     date: new Intl.DateTimeFormat("en-US", {
       dateStyle: "medium",
@@ -94,7 +93,7 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
               data-evaluation-type={evaluation.sign}
               className={styles.essence}
             >
-              <Radius
+              <Essence
                 color={
                   evaluation.sign === "positive" ? greenA.greenA10 : redA.redA10
                 }

@@ -118,7 +118,7 @@
           justify-content: center;
           align-items: center;
           gap: 2px;
-          height: 18px;
+          height: 21px;
           padding: 0 4px;
           border-radius: 4px;
 
@@ -141,6 +141,7 @@
           > p,
           svg {
             @include color("red-10");
+            @include fill("red-10");
           }
         }
 
@@ -150,6 +151,7 @@
           > p,
           svg {
             @include color("green-10");
+            @include fill("green-10");
           }
         }
       }

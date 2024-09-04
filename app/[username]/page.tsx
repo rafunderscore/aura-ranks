@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { User, UserEvaluation } from "@/lib/types/supabase";
 import * as Profile from "@/screens/profile";
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/supabase/lib/client";
 
 export default function Page({ params }: { params: any }) {
   const supabase = createClient();

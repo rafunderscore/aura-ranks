@@ -2,14 +2,16 @@
   "name": "nextjs",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "node ./scripts/lint.js",
-    "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > lib/types/database.types.ts",
+    "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > ./supabase/types/index.ts",
     "supabase:insert": "node ./supabase/scripts/insert.js",
-    "supabase:create": "node ./supabase/scripts/create.js ./supabase/snippets"
+    "supabase:create": "node ./supabase/scripts/create.js ./supabase/snippets",
+    "supabase": "npm run supabase:create && npm run supabase:insert && npm run supabase:types"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.1",

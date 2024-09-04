@@ -1,25 +1,20 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-// Get the directory from the command line arguments
 const snippetsDir = process.argv[2];
 
-// List of SQL files to include (excluding '10.Data.sql')
 const filesToInclude = [
-  "1. Reset.sql",
-  "2. Types.sql",
-  "3. Tables.sql",
-  "4. Views.sql",
-  "5. Indexing.sql",
-  "6. Policies.sql",
-  "7. Functions.sql",
-  "8. Triggers.sql",
+  "reset.sql",
+  "tables.sql",
+  "views.sql",
+  "functions.sql",
+  "indexing.sql",
+  "policies.sql",
+  "triggers.sql",
 ];
 
-// Output file
-const outputFile = path.join(snippetsDir, "11. Combined.sql");
+const outputFile = path.join(snippetsDir, "./library/combined.sql");
 
-// Function to join all the SQL files
 function joinSQLFiles() {
   let combinedSQL = "";
 
@@ -33,7 +28,6 @@ function joinSQLFiles() {
   console.log(`All SQL files combined into ${outputFile}`);
 }
 
-// Check if the path argument is provided
 if (!snippetsDir) {
   console.error(
     "Please provide the path to the snippets directory as an argument.",
@@ -41,5 +35,4 @@ if (!snippetsDir) {
   process.exit(1);
 }
 
-// Execute the function
 joinSQLFiles();

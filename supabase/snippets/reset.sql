@@ -47,13 +47,14 @@ begin
 		end loop;
 	for r in (
 		select
-			routine_name
+			typname
 		from
-			information_schema.routines
+			pg_type
 		where
-			routine_schema = 'public')
+			typnamespace = 'public'::regnamespace
+			and typtype = 'c')
 		loop
-			execute 'DROP FUNCTION IF EXISTS ' || quote_ident(r.routine_name) || '() CASCADE;';
+			execute 'DROP TYPE IF EXISTS ' || quote_ident(r.typname) || ' CASCADE;';
 		end loop;
 	for r in (
 		select
@@ -68,8 +69,4 @@ begin
 		end loop;
 end
 $$;
-
-drop type if exists level;
-
-drop type if exists sign;
 
