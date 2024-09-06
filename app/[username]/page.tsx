@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 
-import { User, UserEvaluation } from "@/lib/types/supabase";
 import * as Profile from "@/screens/profile";
 import { createClient } from "@/supabase/lib/client";
+import { User, EvaluationsWithUserDetails } from "@/supabase/types";
 
 export default function Page({ params }: { params: any }) {
   const supabase = createClient();
   const username = decodeURIComponent(params.username).toLowerCase();
   const [user, setUser] = useState<User | null>(null);
-  const [evaluations, setEvaluations] = useState<UserEvaluation[]>([]);
+  const [evaluations, setEvaluations] = useState<EvaluationsWithUserDetails[]>(
+    [],
+  );
 
   useEffect(() => {
     const getData = async () => {

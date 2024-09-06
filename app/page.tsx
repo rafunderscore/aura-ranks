@@ -1,9 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Ellipsis } from "lucide-react";
 import { useState, useEffect } from "react";
 
 import { User } from "@/lib/types/supabase";
+import styles from "@/styles/page.module.scss";
 import { createClient } from "@/supabase/lib/client";
 
 export default function Page() {
@@ -29,9 +31,14 @@ export default function Page() {
       style={{
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
+        height: "100vh",
         gap: "8px",
       }}
     >
+      <div className={styles.button}>
+        <Ellipsis />
+      </div>
       {usersData.map((user: User) => (
         <motion.div
           initial={{ opacity: 0.5 }}

@@ -89,3 +89,19 @@ end;
 $$
 language plpgsql;
 
+create or replace function assign_random_sector()
+	returns trigger
+	as $$
+declare
+	random_sector sector_enum;
+begin
+	if new.sector is null then
+		select
+			into random_sector(array['Sports', 'Technology', 'Creatives', 'Health', 'Education', 'Finance', 'Entertainment'])[floor(random() * 8 + 1)];
+		new.sector := random_sector;
+	end if;
+	return NEW;
+end;
+$$
+language plpgsql;
+

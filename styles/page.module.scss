@@ -1,0 +1,38 @@
+.button {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: get-color("white-1");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition:
+    background-color 0.3s,
+    transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Springy transition */
+  z-index: 1;
+
+  &::after {
+    content: ""; /* Ensures the pseudo-element is rendered */
+    position: absolute; /* Positioning it relative to the button */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: get-color("white-1");
+    border-radius: 8px;
+    transform: scale(0);
+    transition:
+      background-color 0.3s,
+      transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Springy transition */
+    z-index: -1; /* Ensures it stays behind the button */
+  }
+
+  &:hover {
+    &::after {
+      background-color: get-color("gray-4");
+      transform: scale(1);
+    }
+  }
+}

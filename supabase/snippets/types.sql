@@ -30,3 +30,13 @@ create type rank_enum as ENUM(
 	'Transcendent'
 );
 
+create type sector_enum as ENUM(
+	'Sports',
+	'Technology',
+	'Creatives',
+	'Health',
+	'Education',
+	'Finance',
+	'Entertainment'
+);
+

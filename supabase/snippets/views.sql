@@ -1,8 +1,8 @@
 create view global_leaderboard as
 select
 	id,
-	username,
-	display_name,
+	user_name,
+	user_display_name,
 	aura,
 	aura_rank
 from
@@ -13,8 +13,8 @@ order by
 create view time_based_leaderboard as
 select
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank,
 	sum(ah.aura_change) as aura_gained,
 	count(ah.id) as evaluations_received
@@ -25,8 +25,8 @@ where
 	ah.created_at > now() - INTERVAL '30 days'
 group by
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank
 order by
 	aura_gained desc;
@@ -34,8 +34,8 @@ order by
 create view top_evaluators as
 select
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank,
 	count(e.id) as evaluations_made
 from
@@ -43,8 +43,8 @@ from
 	join evaluations e on u.id = e.evaluator_id
 group by
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank
 order by
 	evaluations_made desc;
@@ -52,8 +52,8 @@ order by
 create view user_profile as
 select
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura,
 	u.aura_rank,
 	sum(
@@ -73,8 +73,8 @@ from
 	left join aura_history ah on u.id = ah.user_id
 group by
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura,
 	u.aura_rank;
 
@@ -100,8 +100,8 @@ create view followers_list as
 select
 	f.followed_id as user_id,
 	u.id as follower_id,
-	u.username as follower_username,
-	u.display_name as follower_display_name,
+	u.user_name as follower_username,
+	u.user_display_name as follower_display_name,
 	f.followed_at
 from
 	follows f
@@ -112,7 +112,7 @@ order by
 create view recent_aura_changes as
 select
 	ah.user_id,
-	u.username,
+	u.user_name,
 	ah.aura_change,
 	ah.created_at
 from
@@ -127,15 +127,15 @@ select
 	e.essence_used,
 	e.created_at as evaluation_time,
 	ev.id as evaluator_id,
-	ev.username as evaluator_username,
-	ev.display_name as evaluator_display_name,
-	ev.avatar_url as evaluator_avatar,
+	ev.user_name as evaluator_username,
+	ev.user_display_name as evaluator_display_name,
+	ev.user_avatar_url as evaluator_avatar,
 	ev.aura as evaluator_aura,
 	ev.aura_rank as evaluator_aura_rank,
 	ee.id as evaluatee_id,
-	ee.username as evaluatee_username,
-	ee.display_name as evaluatee_display_name,
-	ee.avatar_url as evaluatee_avatar,
+	ee.user_name as evaluatee_username,
+	ee.user_display_name as evaluatee_display_name,
+	ee.user_avatar_url as evaluatee_avatar,
 	ee.aura as evaluatee_aura,
 	ee.aura_rank as evaluatee_aura_rank
 from
@@ -144,4 +144,21 @@ from
 	join users ee on e.evaluatee_id = ee.id
 order by
 	e.created_at desc;
+
+create or replace view portfolio as
+select
+	u.id as evaluator_id,
+	u.user_name as evaluator_username,
+	u.user_display_name as evaluator_display_name,
+	u.user_avatar_url as evaluator_avatar,
+	e.evaluatee_id,
+	ue.user_name as evaluatee_username,
+	ue.user_display_name as evaluatee_display_name,
+	e.essence_used,
+	e.comment,
+	e.created_at
+from
+	evaluations e
+	join users u on e.evaluator_id = u.id
+	join users ue on e.evaluatee_id = ue.id;
 

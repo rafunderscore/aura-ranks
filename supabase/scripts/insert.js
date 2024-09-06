@@ -14,11 +14,6 @@ function escapeSqlString(str) {
   return str.replace(/'/g, "''");
 }
 
-// Generate an anime avatar URL
-function generateAnimeAvatarUrl(username) {
-  return `https://anime.kirwako.com/api/avatar?name=${encodeURIComponent(username)}`;
-}
-
 // Generate users
 async function generateUsers(n) {
   const users = [];
@@ -29,12 +24,15 @@ async function generateUsers(n) {
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
     };
-    const username = faker.internet.userName({
+    const userName = faker.internet.userName({
       firstName: name.firstName,
       lastName: name.lastName,
     });
-    const displayName = `${name.firstName} ${name.lastName}`;
-    const avatarUrl = generateAnimeAvatarUrl(username);
+    const userDisplayName = `${name.firstName} ${name.lastName}`;
+    const userAvatarUrl = `https://anime.kirwako.com/api/avatar?name=${encodeURIComponent(userName)}`;
+    const entityName = faker.company.name();
+    const entityLogoUrl = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(entityName)}`;
+    const sector = null; // Let the database trigger assign a random sector if null
     const bio = faker.lorem.sentence();
     const website = faker.internet.url();
     const worldLocation = `${faker.location.city()}, ${faker.location.country()}`;
@@ -45,9 +43,12 @@ async function generateUsers(n) {
 
     users.push({
       id,
-      username,
-      displayName,
-      avatarUrl,
+      userName,
+      userDisplayName,
+      userAvatarUrl,
+      entityName,
+      entityLogoUrl,
+      sector,
       bio,
       website,
       worldLocation,
@@ -62,14 +63,17 @@ async function generateUsers(n) {
     .map((user) => {
       return `(
         '${user.id}',
-        '${escapeSqlString(user.username)}',
-        '${escapeSqlString(user.displayName)}',
-        '${escapeSqlString(user.worldLocation)}',
-        '${escapeSqlString(user.avatarUrl)}',
+        '${escapeSqlString(user.userName)}',
+        '${escapeSqlString(user.userDisplayName)}',
+        '${escapeSqlString(user.userAvatarUrl)}',
+        '${escapeSqlString(user.entityName)}',
+        '${escapeSqlString(user.entityLogoUrl)}',
+                ${user.sector ? `'${user.sector}'` : "NULL"},  -- Let the trigger handle the random sector assignment
         '${escapeSqlString(user.bio)}',
         '${escapeSqlString(user.website)}',
-        ${user.aura},  -- aura will be used to calculate the aura_rank via the DB trigger
+        ${user.aura},  
         ${user.essence},
+        '${escapeSqlString(user.worldLocation)}',
         '${user.createdAt}',
         '${user.updatedAt}'
       )`;
@@ -78,11 +82,11 @@ async function generateUsers(n) {
 
   return {
     sql: `
-      INSERT INTO users (
-        id, username, display_name, world_location, avatar_url, bio, website, aura, essence, created_at, updated_at
-      ) VALUES
-      ${userInserts};
-    `,
+        INSERT INTO users (
+          id, user_name, user_display_name, user_avatar_url, entity_name, entity_logo_url, sector, bio, website, aura, essence, world_location, created_at, updated_at
+        ) VALUES
+        ${userInserts};
+      `,
     userIds: users.map((user) => user.id),
   };
 }
@@ -162,9 +166,9 @@ async function generateData() {
   const spinner = ora("Generating users...").start();
 
   try {
-    const numberOfUsers = 100;
-    const numberOfFollows = 200;
-    const numberOfEvaluations = 100;
+    const numberOfUsers = 500;
+    const numberOfFollows = 500;
+    const numberOfEvaluations = 500;
 
     // Generate users
     const { sql: usersSql, userIds } = await generateUsers(numberOfUsers);

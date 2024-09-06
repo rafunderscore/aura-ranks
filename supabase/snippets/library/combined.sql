@@ -1,4 +1,3 @@
--- reset.sql
 do $$
 declare
 	r RECORD;
@@ -71,14 +70,14 @@ begin
 end
 $$;
 
-
-
--- tables.sql
 create table users(
 	id uuid primary key,
-	username text not null,
-	display_name text,
-	avatar_url text,
+	user_name text not null,
+	user_display_name text,
+	user_avatar_url text,
+	entity_name text not null,
+	entity_logo_url text,
+	sector sector_enum,
 	bio text,
 	website text,
 	essence int4 default 100,
@@ -135,14 +134,11 @@ create table follows(
 	primary key (follower_id, followed_id)
 );
 
-
-
--- views.sql
 create view global_leaderboard as
 select
 	id,
-	username,
-	display_name,
+	user_name,
+	user_display_name,
 	aura,
 	aura_rank
 from
@@ -153,8 +149,8 @@ order by
 create view time_based_leaderboard as
 select
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank,
 	sum(ah.aura_change) as aura_gained,
 	count(ah.id) as evaluations_received
@@ -165,8 +161,8 @@ where
 	ah.created_at > now() - INTERVAL '30 days'
 group by
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank
 order by
 	aura_gained desc;
@@ -174,8 +170,8 @@ order by
 create view top_evaluators as
 select
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank,
 	count(e.id) as evaluations_made
 from
@@ -183,8 +179,8 @@ from
 	join evaluations e on u.id = e.evaluator_id
 group by
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura_rank
 order by
 	evaluations_made desc;
@@ -192,8 +188,8 @@ order by
 create view user_profile as
 select
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura,
 	u.aura_rank,
 	sum(
@@ -213,8 +209,8 @@ from
 	left join aura_history ah on u.id = ah.user_id
 group by
 	u.id,
-	u.username,
-	u.display_name,
+	u.user_name,
+	u.user_display_name,
 	u.aura,
 	u.aura_rank;
 
@@ -240,8 +236,8 @@ create view followers_list as
 select
 	f.followed_id as user_id,
 	u.id as follower_id,
-	u.username as follower_username,
-	u.display_name as follower_display_name,
+	u.user_name as follower_username,
+	u.user_display_name as follower_display_name,
 	f.followed_at
 from
 	follows f
@@ -252,7 +248,7 @@ order by
 create view recent_aura_changes as
 select
 	ah.user_id,
-	u.username,
+	u.user_name,
 	ah.aura_change,
 	ah.created_at
 from
@@ -267,15 +263,15 @@ select
 	e.essence_used,
 	e.created_at as evaluation_time,
 	ev.id as evaluator_id,
-	ev.username as evaluator_username,
-	ev.display_name as evaluator_display_name,
-	ev.avatar_url as evaluator_avatar,
+	ev.user_name as evaluator_username,
+	ev.user_display_name as evaluator_display_name,
+	ev.user_avatar_url as evaluator_avatar,
 	ev.aura as evaluator_aura,
 	ev.aura_rank as evaluator_aura_rank,
 	ee.id as evaluatee_id,
-	ee.username as evaluatee_username,
-	ee.display_name as evaluatee_display_name,
-	ee.avatar_url as evaluatee_avatar,
+	ee.user_name as evaluatee_username,
+	ee.user_display_name as evaluatee_display_name,
+	ee.user_avatar_url as evaluatee_avatar,
 	ee.aura as evaluatee_aura,
 	ee.aura_rank as evaluatee_aura_rank
 from
@@ -285,9 +281,23 @@ from
 order by
 	e.created_at desc;
 
+create or replace view portfolio as
+select
+	u.id as evaluator_id,
+	u.user_name as evaluator_username,
+	u.user_display_name as evaluator_display_name,
+	u.user_avatar_url as evaluator_avatar,
+	e.evaluatee_id,
+	ue.user_name as evaluatee_username,
+	ue.user_display_name as evaluatee_display_name,
+	e.essence_used,
+	e.comment,
+	e.created_at
+from
+	evaluations e
+	join users u on e.evaluator_id = u.id
+	join users ue on e.evaluatee_id = ue.id;
 
-
--- functions.sql
 create or replace function calculate_aura_rank(aura int4)
 	returns rank_enum
 	as $$
@@ -379,9 +389,22 @@ end;
 $$
 language plpgsql;
 
+create or replace function assign_random_sector()
+	returns trigger
+	as $$
+declare
+	random_sector sector_enum;
+begin
+	if new.sector is null then
+		select
+			into random_sector(array['Sports', 'Technology', 'Creatives', 'Health', 'Education', 'Finance', 'Entertainment'])[floor(random() * 8 + 1)];
+		new.sector := random_sector;
+	end if;
+	return NEW;
+end;
+$$
+language plpgsql;
 
-
--- indexing.sql
 create index idx_aura on users(aura desc);
 
 create index idx_aura_rank on users(aura_rank);
@@ -392,9 +415,6 @@ create index idx_follower_id on follows(follower_id);
 
 create index idx_followed_id on follows(followed_id);
 
-
-
--- policies.sql
 alter table users enable row level security;
 
 create policy "Allow individual users to select their own data" on users
@@ -405,9 +425,6 @@ create policy "Allow individual users to update their own aura" on users
 	for update
 		using (auth.uid() = id);
 
-
-
--- triggers.sql
 create trigger update_aura_rank_trigger_on_update
 	before update on users for each row
 	when(old.aura is distinct from new.aura)
@@ -417,5 +434,7 @@ create trigger update_aura_rank_trigger_on_insert
 	before insert on users for each row
 	execute function update_aura_rank();
 
-
+create trigger before_insert_users_sector
+	before insert on users for each row
+	execute function assign_random_sector();
 
