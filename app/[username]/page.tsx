@@ -1,56 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
 
 import * as Profile from "@/screens/profile";
 import { createClient } from "@/supabase/lib/client";
-import { Users } from "@/supabase/types/database.types";
+import { FullUserDetail } from "@/supabase/types/database.types";
 
 export default function Page({ params }: { params: any }) {
   const supabase = createClient();
+
   const username = decodeURIComponent(params.username).toLowerCase();
-  const [user, setUser] = useState<Users | null>(null);
-  const [evaluations, setEvaluations] = useState<EvaluationsWithUserDetails[]>(
-    [],
-  );
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data: userData, error: userError } = await supabase
-          .from("users")
-          .select("*")
-          .ilike("username", username)
-          .single();
+  const [user, setUser] = React.useState<FullUserDetail | null>(null);
 
-        if (userError) throw userError;
+  React.useEffect(() => {
+    getUser().then((data: FullUserDetail) => {
+      setUser(data);
+    });
+  }, []);
 
-        if (userData) {
-          setUser(userData);
-          console.log("User", userData);
+  async function getUser() {
+    const { data, error } = await supabase
+      .from("full_user_details")
+      .select("*")
+      .ilike("user_name", username)
+      .single();
 
-          const { data: evaluationsData, error: evaluationsError } =
-            await supabase
-              .from("evaluations")
-              .select(
-                "*, evaluator:users!evaluations_evaluator_id_fkey(id, username, display_name, avatar_url)",
-              )
-              .eq("evaluatee_id", userData.id);
+    if (error) {
+      console.error(error);
+      return null;
+    }
 
-          if (evaluationsError) throw evaluationsError;
+    console.log(data);
 
-          if (evaluationsData) {
-            setEvaluations(evaluationsData);
-            console.log("Evaluations with Evaluator Info", evaluationsData);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching data:", (error as Error).message);
-      }
-    };
-
-    getData();
-  }, [username]);
+    return data;
+  }
 
   return (
     <div
@@ -67,9 +51,7 @@ export default function Page({ params }: { params: any }) {
             gap: "48px",
           }}
         >
-          <Profile.Header user={user} />
-          <Profile.Standing user={user} />
-          <Profile.Evaluations evaluations={evaluations} />
+          <Profile.Details user={user} />
         </div>
       ) : (
         <div>loading</div>

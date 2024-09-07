@@ -34,55 +34,20 @@ export type Database = {
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluatee_id"];
           },
           {
             foreignKeyName: "aura_history_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
+            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluator_id"];
           },
           {
             foreignKeyName: "aura_history_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
+            referencedRelation: "full_user_details";
             referencedColumns: ["id"];
           },
           {
@@ -122,55 +87,20 @@ export type Database = {
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "essence_transactions_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluatee_id"];
           },
           {
             foreignKeyName: "essence_transactions_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "essence_transactions_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "essence_transactions_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
+            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluator_id"];
           },
           {
             foreignKeyName: "essence_transactions_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "essence_transactions_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "essence_transactions_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
+            referencedRelation: "full_user_details";
             referencedColumns: ["id"];
           },
           {
@@ -216,55 +146,20 @@ export type Database = {
             columns: ["evaluatee_id"];
             isOneToOne: false;
             referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluatee_id"];
           },
           {
             foreignKeyName: "evaluations_evaluatee_id_fkey";
             columns: ["evaluatee_id"];
             isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
+            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluator_id"];
           },
           {
             foreignKeyName: "evaluations_evaluatee_id_fkey";
             columns: ["evaluatee_id"];
             isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
+            referencedRelation: "full_user_details";
             referencedColumns: ["id"];
           },
           {
@@ -279,55 +174,20 @@ export type Database = {
             columns: ["evaluator_id"];
             isOneToOne: false;
             referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluator_id_fkey";
-            columns: ["evaluator_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluatee_id"];
           },
           {
             foreignKeyName: "evaluations_evaluator_id_fkey";
             columns: ["evaluator_id"];
             isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluator_id_fkey";
-            columns: ["evaluator_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluator_id_fkey";
-            columns: ["evaluator_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
+            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluator_id"];
           },
           {
             foreignKeyName: "evaluations_evaluator_id_fkey";
             columns: ["evaluator_id"];
             isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluator_id_fkey";
-            columns: ["evaluator_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluator_id_fkey";
-            columns: ["evaluator_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
+            referencedRelation: "full_user_details";
             referencedColumns: ["id"];
           },
           {
@@ -375,55 +235,20 @@ export type Database = {
             columns: ["followed_id"];
             isOneToOne: false;
             referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["followed_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluatee_id"];
           },
           {
             foreignKeyName: "follows_followed_id_fkey";
             columns: ["followed_id"];
             isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["followed_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["followed_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
+            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluator_id"];
           },
           {
             foreignKeyName: "follows_followed_id_fkey";
             columns: ["followed_id"];
             isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["followed_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["followed_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
+            referencedRelation: "full_user_details";
             referencedColumns: ["id"];
           },
           {
@@ -438,55 +263,20 @@ export type Database = {
             columns: ["follower_id"];
             isOneToOne: false;
             referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["follower_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluatee_id"];
           },
           {
             foreignKeyName: "follows_follower_id_fkey";
             columns: ["follower_id"];
             isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["follower_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["follower_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
+            referencedRelation: "evaluations_with_user_details";
             referencedColumns: ["evaluator_id"];
           },
           {
             foreignKeyName: "follows_follower_id_fkey";
             columns: ["follower_id"];
             isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["follower_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["follower_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
+            referencedRelation: "full_user_details";
             referencedColumns: ["id"];
           },
           {
@@ -574,428 +364,29 @@ export type Database = {
         };
         Relationships: [];
       };
-      followers_count: {
-        Row: {
-          follower_count: number | null;
-          user_id: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluatee_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      followers_list: {
-        Row: {
-          followed_at: string | null;
-          follower_display_name: string | null;
-          follower_id: string | null;
-          follower_username: string | null;
-          user_id: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluatee_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_followed_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      following_count: {
-        Row: {
-          following_count: number | null;
-          user_id: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluatee_id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      global_leaderboard: {
+      full_user_details: {
         Row: {
           aura: number | null;
           aura_rank: Database["public"]["Enums"]["rank_enum"] | null;
-          id: string | null;
-          user_display_name: string | null;
-          user_name: string | null;
-        };
-        Insert: {
-          aura?: number | null;
-          aura_rank?: Database["public"]["Enums"]["rank_enum"] | null;
-          id?: string | null;
-          user_display_name?: string | null;
-          user_name?: string | null;
-        };
-        Update: {
-          aura?: number | null;
-          aura_rank?: Database["public"]["Enums"]["rank_enum"] | null;
-          id?: string | null;
-          user_display_name?: string | null;
-          user_name?: string | null;
-        };
-        Relationships: [];
-      };
-      portfolio: {
-        Row: {
-          comment: string | null;
+          bio: string | null;
           created_at: string | null;
-          essence_used: number | null;
-          evaluatee_display_name: string | null;
-          evaluatee_id: string | null;
-          evaluatee_username: string | null;
-          evaluator_avatar: string | null;
-          evaluator_display_name: string | null;
-          evaluator_id: string | null;
-          evaluator_username: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluatee_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "evaluations_evaluatee_id_fkey";
-            columns: ["evaluatee_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      recent_aura_changes: {
-        Row: {
-          aura_change: number | null;
-          created_at: string | null;
-          user_id: string | null;
-          user_name: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "evaluations_with_user_details";
-            referencedColumns: ["evaluatee_id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "followers_list";
-            referencedColumns: ["follower_id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "global_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "portfolio";
-            referencedColumns: ["evaluator_id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "time_based_leaderboard";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "top_evaluators";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "aura_history_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "user_profile";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      time_based_leaderboard: {
-        Row: {
-          aura_gained: number | null;
-          aura_rank: Database["public"]["Enums"]["rank_enum"] | null;
-          evaluations_received: number | null;
-          id: string | null;
-          user_display_name: string | null;
-          user_name: string | null;
-        };
-        Relationships: [];
-      };
-      top_evaluators: {
-        Row: {
-          aura_rank: Database["public"]["Enums"]["rank_enum"] | null;
+          entity_logo_url: string | null;
+          entity_name: string | null;
+          essence: number | null;
           evaluations_made: number | null;
-          id: string | null;
-          user_display_name: string | null;
-          user_name: string | null;
-        };
-        Relationships: [];
-      };
-      user_profile: {
-        Row: {
-          aura: number | null;
-          aura_rank: Database["public"]["Enums"]["rank_enum"] | null;
           evaluations_received: number | null;
+          followers_count: number | null;
+          following_count: number | null;
           id: string | null;
           recent_aura_gained: number | null;
+          sector: Database["public"]["Enums"]["sector_enum"] | null;
+          total_aura_changes: number | null;
+          updated_at: string | null;
+          user_avatar_url: string | null;
           user_display_name: string | null;
           user_name: string | null;
+          website: string | null;
+          world_location: string | null;
         };
         Relationships: [];
       };
@@ -1870,55 +1261,33 @@ export type InsertAuraHistory =
 export type UpdateAuraHistory =
   Database["public"]["Tables"]["aura_history"]["Update"];
 
-export type EssenceTransactions =
+export type EssenceTransaction =
   Database["public"]["Tables"]["essence_transactions"]["Row"];
-export type InsertEssenceTransactions =
+export type InsertEssenceTransaction =
   Database["public"]["Tables"]["essence_transactions"]["Insert"];
-export type UpdateEssenceTransactions =
+export type UpdateEssenceTransaction =
   Database["public"]["Tables"]["essence_transactions"]["Update"];
 
-export type Evaluations = Database["public"]["Tables"]["evaluations"]["Row"];
-export type InsertEvaluations =
+export type Evaluation = Database["public"]["Tables"]["evaluations"]["Row"];
+export type InsertEvaluation =
   Database["public"]["Tables"]["evaluations"]["Insert"];
-export type UpdateEvaluations =
+export type UpdateEvaluation =
   Database["public"]["Tables"]["evaluations"]["Update"];
 
-export type Follows = Database["public"]["Tables"]["follows"]["Row"];
-export type InsertFollows = Database["public"]["Tables"]["follows"]["Insert"];
-export type UpdateFollows = Database["public"]["Tables"]["follows"]["Update"];
+export type Follow = Database["public"]["Tables"]["follows"]["Row"];
+export type InsertFollow = Database["public"]["Tables"]["follows"]["Insert"];
+export type UpdateFollow = Database["public"]["Tables"]["follows"]["Update"];
 
-export type Users = Database["public"]["Tables"]["users"]["Row"];
-export type InsertUsers = Database["public"]["Tables"]["users"]["Insert"];
-export type UpdateUsers = Database["public"]["Tables"]["users"]["Update"];
+export type User = Database["public"]["Tables"]["users"]["Row"];
+export type InsertUser = Database["public"]["Tables"]["users"]["Insert"];
+export type UpdateUser = Database["public"]["Tables"]["users"]["Update"];
 
 // Views
-export type EvaluationsWithUserDetails =
+export type EvaluationWithUserDetail =
   Database["public"]["Views"]["evaluations_with_user_details"]["Row"];
 
-export type FollowersCount =
-  Database["public"]["Views"]["followers_count"]["Row"];
-
-export type FollowersList =
-  Database["public"]["Views"]["followers_list"]["Row"];
-
-export type FollowingCount =
-  Database["public"]["Views"]["following_count"]["Row"];
-
-export type GlobalLeaderboard =
-  Database["public"]["Views"]["global_leaderboard"]["Row"];
-
-export type Portfolio = Database["public"]["Views"]["portfolio"]["Row"];
-
-export type RecentAuraChanges =
-  Database["public"]["Views"]["recent_aura_changes"]["Row"];
-
-export type TimeBasedLeaderboard =
-  Database["public"]["Views"]["time_based_leaderboard"]["Row"];
-
-export type TopEvaluators =
-  Database["public"]["Views"]["top_evaluators"]["Row"];
-
-export type UserProfile = Database["public"]["Views"]["user_profile"]["Row"];
+export type FullUserDetail =
+  Database["public"]["Views"]["full_user_details"]["Row"];
 
 // Functions
 export type ArgsAddCompressionPolicy =
@@ -1931,9 +1300,9 @@ export type ArgsAddContinuousAggregatePolicy =
 export type ReturnTypeAddContinuousAggregatePolicy =
   Database["public"]["Functions"]["add_continuous_aggregate_policy"]["Returns"];
 
-export type ArgsAddDataNode =
+export type ArgsAddDatumNode =
   Database["public"]["Functions"]["add_data_node"]["Args"];
-export type ReturnTypeAddDataNode =
+export type ReturnTypeAddDatumNode =
   Database["public"]["Functions"]["add_data_node"]["Returns"];
 
 export type ArgsAddDimension =
@@ -1955,9 +1324,9 @@ export type ArgsAddRetentionPolicy =
 export type ReturnTypeAddRetentionPolicy =
   Database["public"]["Functions"]["add_retention_policy"]["Returns"];
 
-export type ArgsAlterDataNode =
+export type ArgsAlterDatumNode =
   Database["public"]["Functions"]["alter_data_node"]["Args"];
-export type ReturnTypeAlterDataNode =
+export type ReturnTypeAlterDatumNode =
   Database["public"]["Functions"]["alter_data_node"]["Returns"];
 
 export type ArgsAlterJob = Database["public"]["Functions"]["alter_job"]["Args"];
@@ -1969,9 +1338,9 @@ export type ArgsApproximateRowCount =
 export type ReturnTypeApproximateRowCount =
   Database["public"]["Functions"]["approximate_row_count"]["Returns"];
 
-export type ArgsAttachDataNode =
+export type ArgsAttachDatumNode =
   Database["public"]["Functions"]["attach_data_node"]["Args"];
-export type ReturnTypeAttachDataNode =
+export type ReturnTypeAttachDatumNode =
   Database["public"]["Functions"]["attach_data_node"]["Returns"];
 
 export type ArgsAttachTablespace =
@@ -1984,14 +1353,14 @@ export type ArgsCalculateAuraRank =
 export type ReturnTypeCalculateAuraRank =
   Database["public"]["Functions"]["calculate_aura_rank"]["Returns"];
 
-export type ArgsChunkCompressionStats =
+export type ArgsChunkCompressionStat =
   Database["public"]["Functions"]["chunk_compression_stats"]["Args"];
-export type ReturnTypeChunkCompressionStats =
+export type ReturnTypeChunkCompressionStat =
   Database["public"]["Functions"]["chunk_compression_stats"]["Returns"];
 
-export type ArgsChunksDetailedSize =
+export type ArgsChunkDetailedSize =
   Database["public"]["Functions"]["chunks_detailed_size"]["Args"];
-export type ReturnTypeChunksDetailedSize =
+export type ReturnTypeChunkDetailedSize =
   Database["public"]["Functions"]["chunks_detailed_size"]["Returns"];
 
 export type ArgsCompressChunk =
@@ -2019,9 +1388,9 @@ export type ArgsDecompressChunk =
 export type ReturnTypeDecompressChunk =
   Database["public"]["Functions"]["decompress_chunk"]["Returns"];
 
-export type ArgsDeleteDataNode =
+export type ArgsDeleteDatumNode =
   Database["public"]["Functions"]["delete_data_node"]["Args"];
-export type ReturnTypeDeleteDataNode =
+export type ReturnTypeDeleteDatumNode =
   Database["public"]["Functions"]["delete_data_node"]["Returns"];
 
 export type ArgsDeleteJob =
@@ -2029,9 +1398,9 @@ export type ArgsDeleteJob =
 export type ReturnTypeDeleteJob =
   Database["public"]["Functions"]["delete_job"]["Returns"];
 
-export type ArgsDetachDataNode =
+export type ArgsDetachDatumNode =
   Database["public"]["Functions"]["detach_data_node"]["Args"];
-export type ReturnTypeDetachDataNode =
+export type ReturnTypeDetachDatumNode =
   Database["public"]["Functions"]["detach_data_node"]["Returns"];
 
 export type ArgsDetachTablespace =
@@ -2039,14 +1408,14 @@ export type ArgsDetachTablespace =
 export type ReturnTypeDetachTablespace =
   Database["public"]["Functions"]["detach_tablespace"]["Returns"];
 
-export type ArgsDetachTablespaces =
+export type ArgsDetachTablespace =
   Database["public"]["Functions"]["detach_tablespaces"]["Args"];
-export type ReturnTypeDetachTablespaces =
+export type ReturnTypeDetachTablespace =
   Database["public"]["Functions"]["detach_tablespaces"]["Returns"];
 
-export type ArgsDropChunks =
+export type ArgsDropChunk =
   Database["public"]["Functions"]["drop_chunks"]["Args"];
-export type ReturnTypeDropChunks =
+export type ReturnTypeDropChunk =
   Database["public"]["Functions"]["drop_chunks"]["Returns"];
 
 export type ArgsGetTelemetryReport =
@@ -2054,9 +1423,9 @@ export type ArgsGetTelemetryReport =
 export type ReturnTypeGetTelemetryReport =
   Database["public"]["Functions"]["get_telemetry_report"]["Returns"];
 
-export type ArgsHypertableCompressionStats =
+export type ArgsHypertableCompressionStat =
   Database["public"]["Functions"]["hypertable_compression_stats"]["Args"];
-export type ReturnTypeHypertableCompressionStats =
+export type ReturnTypeHypertableCompressionStat =
   Database["public"]["Functions"]["hypertable_compression_stats"]["Returns"];
 
 export type ArgsHypertableDetailedSize =
@@ -2127,9 +1496,9 @@ export type ArgsSetIntegerNowFunc =
 export type ReturnTypeSetIntegerNowFunc =
   Database["public"]["Functions"]["set_integer_now_func"]["Returns"];
 
-export type ArgsSetNumberPartitions =
+export type ArgsSetNumberPartition =
   Database["public"]["Functions"]["set_number_partitions"]["Args"];
-export type ReturnTypeSetNumberPartitions =
+export type ReturnTypeSetNumberPartition =
   Database["public"]["Functions"]["set_number_partitions"]["Returns"];
 
 export type ArgsSetReplicationFactor =
@@ -2137,14 +1506,14 @@ export type ArgsSetReplicationFactor =
 export type ReturnTypeSetReplicationFactor =
   Database["public"]["Functions"]["set_replication_factor"]["Returns"];
 
-export type ArgsShowChunks =
+export type ArgsShowChunk =
   Database["public"]["Functions"]["show_chunks"]["Args"];
-export type ReturnTypeShowChunks =
+export type ReturnTypeShowChunk =
   Database["public"]["Functions"]["show_chunks"]["Returns"];
 
-export type ArgsShowTablespaces =
+export type ArgsShowTablespace =
   Database["public"]["Functions"]["show_tablespaces"]["Args"];
-export type ReturnTypeShowTablespaces =
+export type ReturnTypeShowTablespace =
   Database["public"]["Functions"]["show_tablespaces"]["Returns"];
 
 export type ArgsTimeBucket =

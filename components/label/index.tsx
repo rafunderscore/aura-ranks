@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 
 interface LabelProps extends React.HTMLAttributes<HTMLDivElement> {
-  leading: React.ReactNode;
+  leading: string | number | React.ReactNode;
   trailing: string | number | React.ReactNode;
 }
 

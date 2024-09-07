@@ -1,7 +1,6 @@
 import { clsx } from "clsx";
 import { Inter } from "next/font/google";
 
-import NavigationBar from "@/screens/global/navigation";
 import styles from "@/styles/main.module.scss";
 
 import type { Metadata } from "next";
@@ -34,7 +33,6 @@ export default function RootLayout({
         })}
       >
         <main className={styles.main}>
-          <NavigationBar />
           <div className={styles.content}>{children}</div>
         </main>
       </body>

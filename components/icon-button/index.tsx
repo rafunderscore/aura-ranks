@@ -1,3 +1,5 @@
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+
 import { MotionButton } from "@/components/framer-motion/button";
 
 import styles from "./styles.module.scss";
@@ -30,7 +32,7 @@ export const IconButton = ({
       data-background={background}
       className={styles.icon}
     >
-      {props.children}
+      {props.children ?? <DotsHorizontalIcon />}
     </MotionButton>
   );
 };

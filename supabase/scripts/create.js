@@ -13,7 +13,7 @@ const filesToInclude = [
   "triggers.sql",
 ];
 
-const outputFile = path.join(snippetsDir, "./library/combined.sql");
+const outputFile = path.join(snippetsDir, "./combined.sql");
 
 function joinSQLFiles() {
   let combinedSQL = "";

@@ -1,5 +1,6 @@
 {
   "input": "./supabase/types/supabase.types.ts",
   "output": "./supabase/types/database.types.ts",
-  "enumAsType": true
+  "enumAsType": true,
+  "singular": true
 }

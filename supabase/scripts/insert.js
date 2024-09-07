@@ -6,7 +6,7 @@ import ora from "ora";
 import path from "path";
 
 const __dirname = path.dirname(decodeURI(new URL(import.meta.url).pathname));
-const outputFilePath = path.join(__dirname, "../snippets/library/insert.sql");
+const outputFilePath = path.join(__dirname, "../snippets/insert.sql");
 
 function escapeSqlString(str) {
   return str.replace(/'/g, "''");
@@ -30,7 +30,7 @@ async function generateUsers(n) {
     const entityName = faker.company.name();
     const entityLogoUrl = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(entityName)}`;
     const sector = null;
-    const bio = faker.lorem.sentence();
+    const bio = faker.lorem.paragraphs({ min: 5, max: 10 });
     const website = faker.internet.url();
     const worldLocation = `${faker.location.city()}, ${faker.location.country()}`;
     const essence = faker.number.int({ min: 50, max: 10000 });
@@ -93,12 +93,16 @@ async function generateFollows(userIds, n) {
   const followStatements = [];
 
   while (follows.size < n) {
+    // Shuffle and take two unique userIds
     const [followerId, followedId] = faker.helpers.shuffle(userIds).slice(0, 2);
+
+    // Ensure follower and followed are not the same and no duplicate follows
     if (
       followerId !== followedId &&
       !follows.has(`${followerId}-${followedId}`)
     ) {
       follows.add(`${followerId}-${followedId}`);
+
       followStatements.push(`(
         '${followerId}',
         '${followedId}',
@@ -160,9 +164,9 @@ async function generateData() {
   const spinner = ora("Generating users...").start();
 
   try {
-    const numberOfUsers = 500;
-    const numberOfFollows = 500;
-    const numberOfEvaluations = 500;
+    const numberOfUsers = 1000;
+    const numberOfFollows = numberOfUsers * 10; // Each user follows 10 others on average
+    const numberOfEvaluations = 1000;
 
     const { sql: usersSql, userIds } = await generateUsers(numberOfUsers);
 

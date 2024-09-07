@@ -1,3 +1,4 @@
+-- reset.sql
 do $$
 declare
 	r RECORD;
@@ -70,6 +71,9 @@ begin
 end
 $$;
 
+
+
+-- tables.sql
 create table users(
 	id uuid primary key,
 	user_name text not null,
@@ -134,128 +138,60 @@ create table follows(
 	primary key (follower_id, followed_id)
 );
 
-create view global_leaderboard as
-select
-	id,
-	user_name,
-	user_display_name,
-	aura,
-	aura_rank
-from
-	users
-order by
-	aura desc;
 
-create view time_based_leaderboard as
-select
-	u.id,
-	u.user_name,
-	u.user_display_name,
-	u.aura_rank,
-	sum(ah.aura_change) as aura_gained,
-	count(ah.id) as evaluations_received
-from
-	users u
-	join aura_history ah on u.id = ah.user_id
-where
-	ah.created_at > now() - INTERVAL '30 days'
-group by
-	u.id,
-	u.user_name,
-	u.user_display_name,
-	u.aura_rank
-order by
-	aura_gained desc;
 
-create view top_evaluators as
+-- views.sql
+create or replace view full_user_details as
 select
 	u.id,
 	u.user_name,
 	u.user_display_name,
-	u.aura_rank,
-	count(e.id) as evaluations_made
-from
-	users u
-	join evaluations e on u.id = e.evaluator_id
-group by
-	u.id,
-	u.user_name,
-	u.user_display_name,
-	u.aura_rank
-order by
-	evaluations_made desc;
-
-create view user_profile as
-select
-	u.id,
-	u.user_name,
-	u.user_display_name,
+	u.user_avatar_url,
+	u.entity_name,
+	u.entity_logo_url,
+	u.sector,
+	u.bio,
+	u.website,
+	u.essence,
 	u.aura,
 	u.aura_rank,
-	sum(
-		case when ah.created_at > now() - INTERVAL '30 days' then
-			ah.aura_change
-		else
-			0
-		end) as recent_aura_gained,
-	count(
-		case when ah.created_at > now() - INTERVAL '30 days' then
-			ah.id
-		else
-			null
-		end) as evaluations_received
+	u.world_location,
+	coalesce((
+		select
+			count(*)
+		from follows
+		where
+			followed_id = u.id), 0) as followers_count,
+	coalesce((
+		select
+			count(*)
+		from follows
+		where
+			follower_id = u.id), 0) as following_count,
+	coalesce(sum(ah.aura_change), 0) as total_aura_changes,
+	coalesce(sum(
+			case when ah.created_at > now() - INTERVAL '30 days' then
+				ah.aura_change
+			else
+				0
+			end), 0) as recent_aura_gained,
+	coalesce(count(e.id), 0) as evaluations_made,
+	coalesce(sum(
+			case when e.created_at > now() - INTERVAL '30 days' then
+				1
+			else
+				0
+			end), 0) as evaluations_received,
+	u.created_at,
+	u.updated_at
 from
 	users u
 	left join aura_history ah on u.id = ah.user_id
+	left join evaluations e on u.id = e.evaluatee_id
 group by
-	u.id,
-	u.user_name,
-	u.user_display_name,
-	u.aura,
-	u.aura_rank;
-
-create view followers_count as
-select
-	followed_id as user_id,
-	count(follower_id) as follower_count
-from
-	follows
-group by
-	followed_id;
-
-create view following_count as
-select
-	follower_id as user_id,
-	count(followed_id) as following_count
-from
-	follows
-group by
-	follower_id;
-
-create view followers_list as
-select
-	f.followed_id as user_id,
-	u.id as follower_id,
-	u.user_name as follower_username,
-	u.user_display_name as follower_display_name,
-	f.followed_at
-from
-	follows f
-	join users u on u.id = f.follower_id
+	u.id
 order by
-	f.followed_at desc;
-
-create view recent_aura_changes as
-select
-	ah.user_id,
-	u.user_name,
-	ah.aura_change,
-	ah.created_at
-from
-	aura_history ah
-	join users u on u.id = ah.user_id
-order by
-	ah.created_at desc;
+	u.aura desc;
 
 create view evaluations_with_user_details as
 select
@@ -281,23 +217,9 @@ from
 order by
 	e.created_at desc;
 
-create or replace view portfolio as
-select
-	u.id as evaluator_id,
-	u.user_name as evaluator_username,
-	u.user_display_name as evaluator_display_name,
-	u.user_avatar_url as evaluator_avatar,
-	e.evaluatee_id,
-	ue.user_name as evaluatee_username,
-	ue.user_display_name as evaluatee_display_name,
-	e.essence_used,
-	e.comment,
-	e.created_at
-from
-	evaluations e
-	join users u on e.evaluator_id = u.id
-	join users ue on e.evaluatee_id = ue.id;
 
+
+-- functions.sql
 create or replace function calculate_aura_rank(aura int4)
 	returns rank_enum
 	as $$
@@ -405,6 +327,9 @@ end;
 $$
 language plpgsql;
 
+
+
+-- indexing.sql
 create index idx_aura on users(aura desc);
 
 create index idx_aura_rank on users(aura_rank);
@@ -415,7 +340,14 @@ create index idx_follower_id on follows(follower_id);
 
 create index idx_followed_id on follows(followed_id);
 
+
+
+-- policies.sql
 alter table users enable row level security;
+
+create policy "Allow all users to read users" on users
+	for select
+		using (true);
 
 create policy "Allow individual users to select their own data" on users
 	for select
@@ -425,6 +357,69 @@ create policy "Allow individual users to update their own aura" on users
 	for update
 		using (auth.uid() = id);
 
+create policy "Allow individual users to insert their own records" on users
+	for insert
+		with check (auth.uid() = id);
+
+alter table follows enable row level security;
+
+create policy "Allow all users to read follows" on follows
+	for select
+		using (true);
+
+alter table evaluations enable row level security;
+
+create policy "Allow all users to read evaluations" on evaluations
+	for select
+		using (true);
+
+create policy "Allow individual users to select their own evaluations" on evaluations
+	for select
+		using (auth.uid() = evaluator_id);
+
+create policy "Allow individual users to update their own evaluations" on evaluations
+	for update
+		using (auth.uid() = evaluator_id);
+
+create policy "Allow individual users to insert their own evaluations" on evaluations
+	for insert
+		with check (auth.uid() = evaluator_id);
+
+alter table aura_history enable row level security;
+
+create policy "Allow all users to read aura history" on aura_history
+	for select
+		using (true);
+
+create policy "Allow individual users to select their own aura history" on aura_history
+	for select
+		using (auth.uid() = user_id);
+
+create policy "Allow individual users to insert their own aura history" on aura_history
+	for insert
+		with check (auth.uid() = user_id);
+
+create policy "Allow individual users to insert follow relationships" on follows
+	for insert
+		with check (auth.uid() = follower_id);
+
+create policy "Allow individual users to delete follow relationships" on follows
+	for delete
+		using (auth.uid() = follower_id);
+
+alter table essence_transactions enable row level security;
+
+create policy "Allow all users to read essence transactions" on essence_transactions
+	for select
+		using (true);
+
+create policy "Allow individual users to select their own essence transactions" on essence_transactions
+	for select
+		using (auth.uid() = user_id);
+
+
+
+-- triggers.sql
 create trigger update_aura_rank_trigger_on_update
 	before update on users for each row
 	when(old.aura is distinct from new.aura)
@@ -435,6 +430,9 @@ create trigger update_aura_rank_trigger_on_insert
 	execute function update_aura_rank();
 
 create trigger before_insert_users_sector
-	before insert on users for each row
+	before insert on users
+	for each row
 	execute function assign_random_sector();
+
+
 

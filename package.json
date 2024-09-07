@@ -8,12 +8,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "node ./scripts/lint.js",
-    "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > ./supabase/types/supabase.types.ts",
+    "supabase:supabase-types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > ./supabase/types/supabase.types.ts",
     "supabase:better-types": "npx better-supabase-types",
-    "supabase:generate-types": "npm run supabase:types && npm run supabase:better-types",
     "supabase:insert": "node ./supabase/scripts/insert.js",
     "supabase:create": "node ./supabase/scripts/create.js ./supabase/snippets",
-    "supabase": "npm run supabase:create && npm run supabase:insert"
+    "supabase:types": "npm run supabase:supabase-types && npm run supabase:better-types",
+    "supabase:data": "npm run supabase:create && npm run supabase:insert"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.1",

@@ -1,23 +1,39 @@
 .label {
   display: flex;
+  height: 24px;
+  padding: 0px 8px;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+
+  border-radius: 999px;
+  border: 1px solid var(--Gray-Light-4, #ededed);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 
   .leading {
-    @include color("black-12");
-
+    color: var(--Gray-Light-10, #858585);
     display: flex;
-    justify-content: center;
     align-items: center;
+    height: 100%;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.42px;
+
+    svg {
+      height: 12px;
+      width: 12px;
+    }
   }
 
   .trailing {
-    @include paragraph-regular;
-    @include color("black-6");
+    color: var(--Gray-Light-10, #858585);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: -0.42px;
   }
 }
