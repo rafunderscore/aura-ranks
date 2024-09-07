@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "node ./scripts/lint.js",
-    "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > ./supabase/types/database.types.ts",
+    "supabase:types": "npx supabase gen types --lang=typescript --project-id hlcpwzvpryzuwrxetynm --schema public > ./supabase/types/supabase.types.ts",
+    "supabase:better-types": "npx better-supabase-types",
+    "supabase:generate-types": "npm run supabase:types && npm run supabase:better-types",
     "supabase:insert": "node ./supabase/scripts/insert.js",
     "supabase:create": "node ./supabase/scripts/create.js ./supabase/snippets",
     "supabase": "npm run supabase:create && npm run supabase:insert"
@@ -51,6 +53,7 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "axios": "^1.7.7",
+    "better-supabase-types": "^2.7.6",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.3.30",

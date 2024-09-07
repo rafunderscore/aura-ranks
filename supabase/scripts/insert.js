@@ -5,16 +5,13 @@ import chalk from "chalk";
 import ora from "ora";
 import path from "path";
 
-// File path to output SQL script
 const __dirname = path.dirname(decodeURI(new URL(import.meta.url).pathname));
 const outputFilePath = path.join(__dirname, "../snippets/library/insert.sql");
 
-// Helper function to escape SQL strings
 function escapeSqlString(str) {
   return str.replace(/'/g, "''");
 }
 
-// Generate users
 async function generateUsers(n) {
   const users = [];
 
@@ -32,7 +29,7 @@ async function generateUsers(n) {
     const userAvatarUrl = `https://anime.kirwako.com/api/avatar?name=${encodeURIComponent(userName)}`;
     const entityName = faker.company.name();
     const entityLogoUrl = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(entityName)}`;
-    const sector = null; // Let the database trigger assign a random sector if null
+    const sector = null;
     const bio = faker.lorem.sentence();
     const website = faker.internet.url();
     const worldLocation = `${faker.location.city()}, ${faker.location.country()}`;
@@ -91,7 +88,6 @@ async function generateUsers(n) {
   };
 }
 
-// Generate follows between users
 async function generateFollows(userIds, n) {
   const follows = new Set();
   const followStatements = [];
@@ -117,7 +113,6 @@ async function generateFollows(userIds, n) {
   `;
 }
 
-// Generate evaluations and aura history
 async function generateEvaluationsAndAuraHistory(userIds, n) {
   const evaluations = [];
   const auraHistory = [];
@@ -129,7 +124,7 @@ async function generateEvaluationsAndAuraHistory(userIds, n) {
     const essenceUsed = faker.number.int({ min: 10, max: 1000 });
     const auraChange = faker.number.int({ min: -100, max: 500 });
     const createdAt = faker.date.recent().toISOString();
-    const comment = faker.lorem.sentences(2); // Generate a comment for the evaluation
+    const comment = faker.lorem.sentences(2);
 
     evaluations.push(`(
       '${uuidv4()}',
@@ -161,7 +156,6 @@ async function generateEvaluationsAndAuraHistory(userIds, n) {
   return [evaluationsSql, auraHistorySql];
 }
 
-// Main function to generate all data
 async function generateData() {
   const spinner = ora("Generating users...").start();
 
@@ -170,23 +164,19 @@ async function generateData() {
     const numberOfFollows = 500;
     const numberOfEvaluations = 500;
 
-    // Generate users
     const { sql: usersSql, userIds } = await generateUsers(numberOfUsers);
 
     spinner.succeed("Users generated.");
 
-    // Generate follows
     spinner.start("Generating follows...");
     const followsSql = await generateFollows(userIds, numberOfFollows);
     spinner.succeed("Follows generated.");
 
-    // Generate evaluations and aura history
     spinner.start("Generating evaluations and aura history...");
     const [evaluationsSql, auraHistorySql] =
       await generateEvaluationsAndAuraHistory(userIds, numberOfEvaluations);
     spinner.succeed("Evaluations and aura history generated.");
 
-    // Combine all SQL into a single script
     const combinedSql = [
       usersSql,
       followsSql,
@@ -194,13 +184,11 @@ async function generateData() {
       auraHistorySql,
     ].join("\n\n");
 
-    // Ensure the output directory exists
     const libraryDir = path.dirname(outputFilePath);
     if (!fs.existsSync(libraryDir)) {
       fs.mkdirSync(libraryDir);
     }
 
-    // Write to the SQL file
     fs.writeFileSync(outputFilePath, combinedSql);
     console.log(chalk.green(`✅ SQL script written to ${outputFilePath}`));
   } catch (error) {
@@ -209,5 +197,4 @@ async function generateData() {
   }
 }
 
-// Run the data generation
 generateData();

@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 
 import * as Profile from "@/screens/profile";
 import { createClient } from "@/supabase/lib/client";
-import { User, EvaluationsWithUserDetails } from "@/supabase/types";
+import { Users } from "@/supabase/types/database.types";
 
 export default function Page({ params }: { params: any }) {
   const supabase = createClient();
   const username = decodeURIComponent(params.username).toLowerCase();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Users | null>(null);
   const [evaluations, setEvaluations] = useState<EvaluationsWithUserDetails[]>(
     [],
   );
