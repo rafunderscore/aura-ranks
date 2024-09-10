@@ -26,10 +26,9 @@ async function generateUsers(n) {
       lastName: name.lastName,
     });
     const userDisplayName = `${name.firstName} ${name.lastName}`;
-    const userAvatarUrl = `https://anime.kirwako.com/api/avatar?name=${encodeURIComponent(userName)}`;
+    const userAvatarUrl = `https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(userName)}`;
     const entityName = faker.company.name();
     const entityLogoUrl = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(entityName)}`;
-    const sector = null;
     const bio = faker.lorem.paragraphs({ min: 5, max: 10 });
     const website = faker.internet.url();
     const worldLocation = `${faker.location.city()}, ${faker.location.country()}`;
@@ -45,7 +44,6 @@ async function generateUsers(n) {
       userAvatarUrl,
       entityName,
       entityLogoUrl,
-      sector,
       bio,
       website,
       worldLocation,
@@ -65,11 +63,10 @@ async function generateUsers(n) {
         '${escapeSqlString(user.userAvatarUrl)}',
         '${escapeSqlString(user.entityName)}',
         '${escapeSqlString(user.entityLogoUrl)}',
-                ${user.sector ? `'${user.sector}'` : "NULL"},  -- Let the trigger handle the random sector assignment
         '${escapeSqlString(user.bio)}',
         '${escapeSqlString(user.website)}',
-        ${user.aura},  
-        ${user.essence},
+         ${user.aura},  
+         ${user.essence},
         '${escapeSqlString(user.worldLocation)}',
         '${user.createdAt}',
         '${user.updatedAt}'
@@ -80,7 +77,7 @@ async function generateUsers(n) {
   return {
     sql: `
         INSERT INTO users (
-          id, user_name, user_display_name, user_avatar_url, entity_name, entity_logo_url, sector, bio, website, aura, essence, world_location, created_at, updated_at
+          id, user_name, user_display_name, user_avatar_url, entity_name, entity_logo_url, bio, website, aura, essence, world_location, created_at, updated_at
         ) VALUES
         ${userInserts};
       `,
@@ -93,10 +90,8 @@ async function generateFollows(userIds, n) {
   const followStatements = [];
 
   while (follows.size < n) {
-    // Shuffle and take two unique userIds
     const [followerId, followedId] = faker.helpers.shuffle(userIds).slice(0, 2);
 
-    // Ensure follower and followed are not the same and no duplicate follows
     if (
       followerId !== followedId &&
       !follows.has(`${followerId}-${followedId}`)
@@ -165,7 +160,7 @@ async function generateData() {
 
   try {
     const numberOfUsers = 1000;
-    const numberOfFollows = numberOfUsers * 10; // Each user follows 10 others on average
+    const numberOfFollows = 10 * numberOfUsers;
     const numberOfEvaluations = 1000;
 
     const { sql: usersSql, userIds } = await generateUsers(numberOfUsers);

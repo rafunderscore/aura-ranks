@@ -36,17 +36,18 @@
 
     &[data-layout="row"] {
       flex-direction: row;
+      gap: 24px;
     }
 
     &[data-layout="graph"] {
       > div {
-        height: 512px;
+        height: 256px;
       }
     }
 
     &[data-layout="evaluations"] {
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
 
       > div {
         width: 100%;

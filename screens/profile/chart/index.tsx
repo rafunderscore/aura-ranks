@@ -5,7 +5,7 @@ import IconButton from "@/components/icon-button";
 
 import LineChart from "./line";
 
-export const Insights = () => {
+export const Chart = () => {
   return (
     <ContentBox
       heading="Graphical Insights"

@@ -1,30 +1,45 @@
 import { faker } from "@faker-js/faker";
-import { redA, greenA } from "@radix-ui/colors";
+import { greenA, redA } from "@radix-ui/colors";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { intlFormatDistance } from "date-fns";
-import { Send, ThumbsDown, ThumbsUp } from "lucide-react";
+import { ThumbsUp, ThumbsDown, Send } from "lucide-react";
 import Image from "next/image";
 
+import { Island } from "@/components";
 import Button from "@/components/button";
 import { Essence } from "@/components/icons";
-import Island from "@/components/island";
-import { UserEvaluation } from "@/lib/types/supabase";
 
 import styles from "./evaluation.module.scss";
 
-interface EvaluationProps extends React.HTMLAttributes<HTMLDivElement> {
-  evaluation: UserEvaluation;
-  end?: boolean;
+export interface EvaluationType {
+  id: string;
+  name: string;
+  avatar: string;
+  comment: string;
+  essence_used: number;
+  type: "positive" | "negative";
+  created_at: Date;
+  likes: number;
+  dislikes: number;
+  shares: number;
+  responses: number;
+}
+
+interface EvaluationProps {
+  evaluation: EvaluationType;
 }
 
 const PlaceholderImage = () => {
   return (
-    <Image
-      unoptimized
-      src={`https://anime.kirwako.com/api/avatar?name=${faker.name.firstName()}`}
-      alt={"Profile Picture"}
-      fill
-    />
+    <div>
+      <Image
+        unoptimized
+        src={`https://api.dicebear.com/9.x/glass/svg?seed=${encodeURIComponent(faker.string.uuid())}`}
+        alt={"Profile Picture"}
+        width={40}
+        height={40}
+      />
+    </div>
   );
 };
 
@@ -43,16 +58,9 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
     }),
   };
 
-  const data = {
-    likes: faker.number.int({ max: 100000 }),
-    dislikes: faker.number.int({ max: 10000 }),
-    shares: faker.number.int({ max: 10000 }),
-    responses: faker.number.int({ max: 10000 }),
-  };
-
   const icon = {
-    width: 15,
-    height: 15,
+    width: 16,
+    height: 16,
   };
 
   return (
@@ -61,7 +69,7 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
         <div className={styles.avatar}>
           <Image
             unoptimized
-            src={evaluation.evaluator?.avatar_url ?? ""}
+            src={evaluation.avatar}
             alt={"Profile Picture"}
             width={40}
             height={40}
@@ -83,19 +91,19 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
       <div className={styles.right}>
         <div className={styles.heading}>
           <div className={styles.sentence}>
-            <p>{evaluation.evaluator?.display_name}</p>
-            {evaluation.sign === "positive" ? (
+            <p>{evaluation.name}</p>
+            {evaluation.type === "positive" ? (
               <span>bestowed</span>
             ) : (
               <span>siphoned</span>
             )}
             <div
-              data-evaluation-type={evaluation.sign}
+              data-evaluation-type={evaluation.type}
               className={styles.essence}
             >
               <Essence
                 color={
-                  evaluation.sign === "positive" ? greenA.greenA10 : redA.redA10
+                  evaluation.type === "positive" ? greenA.greenA10 : redA.redA10
                 }
               />
               <p>{formatter.number.format(evaluation.essence_used)}</p>
@@ -110,23 +118,32 @@ export const Evaluation = ({ evaluation }: EvaluationProps) => {
             <DotsHorizontalIcon />
           </Button>
         </div>
-        <Island style={{ width: "100%" }}>{evaluation.comment}</Island>
+        <Island style={{ width: "100%" }}>
+          <p
+            style={{
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+            }}
+          >
+            {evaluation.comment}
+          </p>
+        </Island>
         <div className={styles.actions}>
           <div>
             Show Responses
-            <p>({formatter.number.format(data.responses)})</p>
+            <p>({formatter.number.format(evaluation.responses)})</p>
           </div>
           <div>
             <ThumbsUp {...icon} />
-            <p>{formatter.number.format(data.likes)}</p>
+            <p>{formatter.number.format(evaluation.likes)}</p>
           </div>
           <div>
             <ThumbsDown {...icon} />
-            <p>{formatter.number.format(data.dislikes)}</p>
+            <p>{formatter.number.format(evaluation.dislikes)}</p>
           </div>
           <div>
             <Send {...icon} />
-            <p>{formatter.number.format(data.shares)}</p>
+            <p>{formatter.number.format(evaluation.shares)}</p>
           </div>
         </div>
       </div>

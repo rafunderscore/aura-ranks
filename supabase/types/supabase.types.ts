@@ -33,14 +33,21 @@ export type Database = {
             foreignKeyName: "aura_history_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluatee_id"]
           },
           {
             foreignKeyName: "aura_history_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
+            referencedColumns: ["parent_evaluator_id"]
+          },
+          {
+            foreignKeyName: "aura_history_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluator_id"]
           },
           {
@@ -86,14 +93,21 @@ export type Database = {
             foreignKeyName: "essence_transactions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluatee_id"]
           },
           {
             foreignKeyName: "essence_transactions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
+            referencedColumns: ["parent_evaluator_id"]
+          },
+          {
+            foreignKeyName: "essence_transactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluator_id"]
           },
           {
@@ -145,14 +159,21 @@ export type Database = {
             foreignKeyName: "evaluations_evaluatee_id_fkey"
             columns: ["evaluatee_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluatee_id"]
           },
           {
             foreignKeyName: "evaluations_evaluatee_id_fkey"
             columns: ["evaluatee_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
+            referencedColumns: ["parent_evaluator_id"]
+          },
+          {
+            foreignKeyName: "evaluations_evaluatee_id_fkey"
+            columns: ["evaluatee_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluator_id"]
           },
           {
@@ -173,14 +194,21 @@ export type Database = {
             foreignKeyName: "evaluations_evaluator_id_fkey"
             columns: ["evaluator_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluatee_id"]
           },
           {
             foreignKeyName: "evaluations_evaluator_id_fkey"
             columns: ["evaluator_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
+            referencedColumns: ["parent_evaluator_id"]
+          },
+          {
+            foreignKeyName: "evaluations_evaluator_id_fkey"
+            columns: ["evaluator_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluator_id"]
           },
           {
@@ -208,8 +236,15 @@ export type Database = {
             foreignKeyName: "evaluations_parent_evaluation_id_fkey"
             columns: ["parent_evaluation_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluation_id"]
+          },
+          {
+            foreignKeyName: "evaluations_parent_evaluation_id_fkey"
+            columns: ["parent_evaluation_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations_with_parent_details"
+            referencedColumns: ["parent_evaluation_id"]
           },
         ]
       }
@@ -234,14 +269,21 @@ export type Database = {
             foreignKeyName: "follows_followed_id_fkey"
             columns: ["followed_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluatee_id"]
           },
           {
             foreignKeyName: "follows_followed_id_fkey"
             columns: ["followed_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
+            referencedColumns: ["parent_evaluator_id"]
+          },
+          {
+            foreignKeyName: "follows_followed_id_fkey"
+            columns: ["followed_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluator_id"]
           },
           {
@@ -262,14 +304,21 @@ export type Database = {
             foreignKeyName: "follows_follower_id_fkey"
             columns: ["follower_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluatee_id"]
           },
           {
             foreignKeyName: "follows_follower_id_fkey"
             columns: ["follower_id"]
             isOneToOne: false
-            referencedRelation: "evaluations_with_user_details"
+            referencedRelation: "evaluations_with_parent_details"
+            referencedColumns: ["parent_evaluator_id"]
+          },
+          {
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations_with_parent_details"
             referencedColumns: ["evaluator_id"]
           },
           {
@@ -344,7 +393,7 @@ export type Database = {
       }
     }
     Views: {
-      evaluations_with_user_details: {
+      evaluations_with_parent_details: {
         Row: {
           essence_used: number | null
           evaluatee_aura: number | null
@@ -353,6 +402,7 @@ export type Database = {
           evaluatee_display_name: string | null
           evaluatee_id: string | null
           evaluatee_username: string | null
+          evaluation_comment: string | null
           evaluation_id: string | null
           evaluation_time: string | null
           evaluator_aura: number | null
@@ -361,6 +411,16 @@ export type Database = {
           evaluator_display_name: string | null
           evaluator_id: string | null
           evaluator_username: string | null
+          parent_evaluation_comment: string | null
+          parent_evaluation_id: string | null
+          parent_evaluator_aura: number | null
+          parent_evaluator_aura_rank:
+            | Database["public"]["Enums"]["rank_enum"]
+            | null
+          parent_evaluator_avatar: string | null
+          parent_evaluator_display_name: string | null
+          parent_evaluator_id: string | null
+          parent_evaluator_username: string | null
         }
         Relationships: []
       }

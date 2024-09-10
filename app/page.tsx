@@ -16,7 +16,10 @@ export default function Page() {
   }, []);
 
   async function getUsers() {
-    const { data } = await supabase.from("users").select("*");
+    const { data } = await supabase
+      .from("users")
+      .select("*")
+      .order("user_name");
 
     console.log(data);
 

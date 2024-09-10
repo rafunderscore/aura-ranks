@@ -1,4 +1,3 @@
--- reset.sql
 do $$
 declare
 	r RECORD;
@@ -71,9 +70,6 @@ begin
 end
 $$;
 
-
-
--- tables.sql
 create table users(
 	id uuid primary key,
 	user_name text not null,
@@ -138,9 +134,6 @@ create table follows(
 	primary key (follower_id, followed_id)
 );
 
-
-
--- views.sql
 create or replace view full_user_details as
 select
 	u.id,
@@ -193,10 +186,11 @@ group by
 order by
 	u.aura desc;
 
-create view evaluations_with_user_details as
+create or replace view evaluations_with_parent_details as
 select
 	e.id as evaluation_id,
 	e.essence_used,
+	e.comment as evaluation_comment,
 	e.created_at as evaluation_time,
 	ev.id as evaluator_id,
 	ev.user_name as evaluator_username,
@@ -209,17 +203,24 @@ select
 	ee.user_display_name as evaluatee_display_name,
 	ee.user_avatar_url as evaluatee_avatar,
 	ee.aura as evaluatee_aura,
-	ee.aura_rank as evaluatee_aura_rank
+	ee.aura_rank as evaluatee_aura_rank,
+	parent_e.id as parent_evaluation_id,
+	parent_e.comment as parent_evaluation_comment,
+	parent_ev.id as parent_evaluator_id,
+	parent_ev.user_name as parent_evaluator_username,
+	parent_ev.user_display_name as parent_evaluator_display_name,
+	parent_ev.user_avatar_url as parent_evaluator_avatar,
+	parent_ev.aura as parent_evaluator_aura,
+	parent_ev.aura_rank as parent_evaluator_aura_rank
 from
 	evaluations e
 	join users ev on e.evaluator_id = ev.id
 	join users ee on e.evaluatee_id = ee.id
+	left join evaluations parent_e on e.parent_evaluation_id = parent_e.id
+	left join users parent_ev on parent_e.evaluator_id = parent_ev.id
 order by
 	e.created_at desc;
 
-
-
--- functions.sql
 create or replace function calculate_aura_rank(aura int4)
 	returns rank_enum
 	as $$
@@ -327,9 +328,6 @@ end;
 $$
 language plpgsql;
 
-
-
--- indexing.sql
 create index idx_aura on users(aura desc);
 
 create index idx_aura_rank on users(aura_rank);
@@ -340,9 +338,6 @@ create index idx_follower_id on follows(follower_id);
 
 create index idx_followed_id on follows(followed_id);
 
-
-
--- policies.sql
 alter table users enable row level security;
 
 create policy "Allow all users to read users" on users
@@ -417,9 +412,6 @@ create policy "Allow individual users to select their own essence transactions" 
 	for select
 		using (auth.uid() = user_id);
 
-
-
--- triggers.sql
 create trigger update_aura_rank_trigger_on_update
 	before update on users for each row
 	when(old.aura is distinct from new.aura)
@@ -430,9 +422,6 @@ create trigger update_aura_rank_trigger_on_insert
 	execute function update_aura_rank();
 
 create trigger before_insert_users_sector
-	before insert on users
-	for each row
+	before insert on users for each row
 	execute function assign_random_sector();
-
-
 

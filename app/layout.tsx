@@ -32,9 +32,7 @@ export default function RootLayout({
           [sans.className]: true,
         })}
       >
-        <main className={styles.main}>
-          <div className={styles.content}>{children}</div>
-        </main>
+        <main className={styles.main}>{children}</main>
       </body>
     </html>
   );
